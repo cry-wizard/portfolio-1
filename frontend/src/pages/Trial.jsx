@@ -343,10 +343,13 @@ export default function Trial() {
 
     window.location.href = "/login?type=register";
   };
+  const premiumUser = JSON.parse(localStorage.getItem("premiumUser"));
+
+  const isPremium = premiumUser?.premium;
 
   return (
     <>
-      <div className="trial-watermark">TRIAL VERSION</div>
+      {!isPremium && <div className="trial-watermark">TRIAL VERSION</div>}
       {/* Header */}
       <header className="dashboard header">
         <div className="logo">
@@ -406,6 +409,12 @@ export default function Trial() {
             {editMode ? "Done" : "Customize"}
           </button>
 
+          <button
+            onClick={() => navigate("/pricing")}
+            className="customize-btn"
+          >
+            Go Premium
+          </button>
           <div className="user-session">
             <span>{username} </span>
 
@@ -525,10 +534,26 @@ export default function Trial() {
             <button
               className="cv-btn"
               onClick={() => {
-                alert("Download disabled in Trial Version");
+                if (!isPremium) {
+                  alert("Upgrade to premium to download CV");
+
+                  return;
+                }
+
+                if (heroSection.cv) {
+                  const link = document.createElement("a");
+
+                  link.href = heroSection.cv;
+
+                  link.download = "resume";
+
+                  link.click();
+                } else {
+                  alert("No CV uploaded");
+                }
               }}
             >
-              DOWNLOAD CV
+              {isPremium ? "DOWNLOAD CV" : "PREMIUM ONLY"}
             </button>
             {/* <a
               href={heroSection.cv || "#"}
@@ -558,7 +583,8 @@ export default function Trial() {
         <div className="hero-right">
           <div className="image-circle">
             <img src={heroSection.image} alt="profile" />
-            <div className="image-watermark">TRIAL</div>
+
+            {!isPremium && <div className="image-watermark">TRIAL</div>}
           </div>
         </div>
       </section>

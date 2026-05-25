@@ -20,8 +20,8 @@ export default function Register() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/register",
-        formData
+        `${import.meta.env.VITE_API_URL}/api/auth/register`,
+        formData,
       );
 
       console.log(res.data);
@@ -46,7 +46,8 @@ export default function Register() {
           onChange={handleChange}
         />
 
-        <br /><br />
+        <br />
+        <br />
 
         <input
           type="email"
@@ -55,7 +56,8 @@ export default function Register() {
           onChange={handleChange}
         />
 
-        <br /><br />
+        <br />
+        <br />
 
         <input
           type="password"
@@ -64,11 +66,10 @@ export default function Register() {
           onChange={handleChange}
         />
 
-        <br /><br />
+        <br />
+        <br />
 
-        <button type="submit">
-          Register
-        </button>
+        <button type="submit">Register</button>
       </form>
     </div>
   );

@@ -20,6 +20,11 @@ export default function Login() {
 
   const type = searchParams.get("type");
 
+  const isDemo = type === "demo";
+  const isRegister = type === "register";
+
+  const [name, setName] = useState("");
+
   const [form, setForm] = useState({
     username: "",
     email: "",
@@ -128,19 +133,58 @@ export default function Login() {
     }
   };
 
-  if (type !== "register") {
+  if (type !== "register" && type !== "demo") {
+    navigate("/");
     return null;
   }
 
+  const handleStart = () => {
+    const demoUser = {
+      name: name || "Demo User",
+      type: "demo",
+      createdAt: Date.now(),
+    };
+
+    localStorage.setItem("demoUser", JSON.stringify(demoUser));
+
+    navigate("/demo");
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-black text-white">
-      <div className="w-[420px] p-8 rounded-2xl bg-white/5 border border-white/10">
-        <h1 className="text-3xl font-bold mb-2">Start Free Trial</h1>
+      {isDemo && (
+        <div className="w-[400px] p-8 rounded-2xl bg-white/5 border border-white/10">
+          <h1 className="text-3xl font-bold mb-3">Start Demo</h1>
 
-        <p className="text-white/50 mb-8">3-Day Trial • Watermarked Version</p>
+          <p className="text-white/50 mb-6">
+            Preview the portfolio dashboard instantly.
+          </p>
 
-        {/* USERNAME */}
-        {/* <input
+          <input
+            placeholder="Enter demo name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full p-3 rounded-xl bg-black/40 border border-white/10 mb-6"
+          />
+
+          <button
+            onClick={handleStart}
+            className="w-full py-3 rounded-xl bg-blue-500 font-semibold"
+          >
+            Start Demo
+          </button>
+        </div>
+      )}
+      {isRegister && (
+        <div className="w-[420px] p-8 rounded-2xl bg-white/5 border border-white/10">
+          <h1 className="text-3xl font-bold mb-2">Start Free Trial</h1>
+
+          <p className="text-white/50 mb-8">
+            3-Day Trial • Watermarked Version
+          </p>
+
+          {/* USERNAME */}
+          {/* <input
           type="text"
           placeholder="Username"
           value={form.username}
@@ -153,54 +197,55 @@ export default function Login() {
           className="w-full p-3 rounded-xl bg-black/30 border border-white/10 mb-4"
         /> */}
 
-        {/* EMAIL */}
-        <input
-          type="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={(e) =>
-            setForm({
-              ...form,
-              email: e.target.value,
-            })
-          }
-          className="w-full p-3 rounded-xl bg-black/30 border border-white/10 mb-4"
-        />
+          {/* EMAIL */}
+          <input
+            type="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={(e) =>
+              setForm({
+                ...form,
+                email: e.target.value,
+              })
+            }
+            className="w-full p-3 rounded-xl bg-black/30 border border-white/10 mb-4"
+          />
 
-        {/* PASSWORD */}
-        <input
-          type="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={(e) =>
-            setForm({
-              ...form,
-              password: e.target.value,
-            })
-          }
-          className="w-full p-3 rounded-xl bg-black/30 border border-white/10 mb-6"
-        />
+          {/* PASSWORD */}
+          <input
+            type="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={(e) =>
+              setForm({
+                ...form,
+                password: e.target.value,
+              })
+            }
+            className="w-full p-3 rounded-xl bg-black/30 border border-white/10 mb-6"
+          />
 
-        {/* REGISTER */}
-        <button
-          onClick={registerUser}
-          className="w-full py-3 rounded-xl bg-purple-500 mb-5"
-        >
-          Start Free Trial
-        </button>
-        <button onClick={loginUser}>Login</button>
+          {/* REGISTER */}
+          <button
+            onClick={registerUser}
+            className="w-full py-3 rounded-xl bg-purple-500 mb-5"
+          >
+            Start Free Trial
+          </button>
+          <button onClick={loginUser}>Login</button>
 
-        {/* DIVIDER */}
-        <div className="text-center text-white/40 mb-5">OR</div>
+          {/* DIVIDER */}
+          <div className="text-center text-white/40 mb-5">OR</div>
 
-        {/* GOOGLE */}
-        <button
-          onClick={googleLogin}
-          className="w-full py-3 rounded-xl bg-white text-black font-semibold"
-        >
-          Continue with Google
-        </button>
-      </div>
+          {/* GOOGLE */}
+          <button
+            onClick={googleLogin}
+            className="w-full py-3 rounded-xl bg-white text-black font-semibold"
+          >
+            Continue with Google
+          </button>
+        </div>
+      )}
     </div>
   );
 }

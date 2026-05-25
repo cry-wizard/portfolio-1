@@ -4,35 +4,36 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Trial from "./pages/Trial";
+import Pricing from "./pages/Pricing";
+import PlanDetails from "./pages/PlanDetails";
+import Checkout from "./pages/Checkout";
+import Payment from "./pages/Payment";
+import Success from "./pages/Success";
+import PrivacyPolicy from "./pages/Privacy-Policy";
+import RefundPolicy from "./pages/Refund-Policy";
+import TermCondition from "./pages/Term-Condition";
+import CookieBanner from "./components/CookieBanner";
 
 function App() {
-
   return (
-    <Routes>
+    <>
+      <CookieBanner />
 
-      <Route
-        path="/"
-        element={<Home />}
-      />
-
-      <Route
-        path="/login"
-        element={<Login />}
-      />
-
-      {/* DEMO */}
-      <Route
-        path="/app"
-        element={<Dashboard />}
-      />
-
-      {/* REAL USER */}
-      <Route
-        path="/trial"
-        element={<Trial />}
-      />
-
-    </Routes>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/demo" element={<Dashboard />} />
+        <Route path="/trial" element={<Trial />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/plan/:planId" element={<PlanDetails />} />
+        <Route path="/checkout/:planId" element={<Checkout />} />
+        <Route path="/payment/:planId" element={<Payment />} />
+        <Route path="/success" element={<Success />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/refund-policy" element={<RefundPolicy />} />
+        <Route path="/term-condition" element={<TermCondition />} />
+      </Routes>
+    </>
   );
 }
 
