@@ -1,73 +1,205 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+
+import { useNavigate, useSearchParams } from "react-router-dom";
+
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { auth, db } from "../services/firebase";
+//console.log("DB OBJECT:", db);
 
 export default function Login() {
-  const [mode, setMode] = useState("demo");
-  const [name, setName] = useState("");
   const navigate = useNavigate();
 
-  const handleStart = () => {
-    if (mode === "demo") {
-      const demoUser = {
-        name: name || "Demo User",
-        type: "demo",
-        createdAt: Date.now(),
-      };
+  const [searchParams] = useSearchParams();
 
-      localStorage.setItem("demoUser", JSON.stringify(demoUser));
+  const type = searchParams.get("type");
 
-      navigate("/app");
-    } else {
-      alert("Trial system will connect to backend next step");
+  const [form, setForm] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+
+        if (type === "register") {
+          navigate("/trial");
+        }
+      }
+    });
+
+    return () => unsubscribe();
+  }, [navigate, type]);
+
+  // EMAIL REGISTER
+  const registerUser = async () => {
+    try {
+      const result = await createUserWithEmailAndPassword(
+        auth,
+        form.email,
+        form.password,
+      );
+      const user = result.user;
+      await setDoc(doc(db, "users", user.uid), {
+        uid: user.uid,
+        username: form.username,
+        email: user.email,
+
+        provider: "email",
+
+        plan: "trial",
+        trialStartedAt: Date.now(),
+        trialEndsAt: Date.now() + 3 * 24 * 60 * 60 * 1000,
+      });
+
+      navigate("/trial");
+    } catch (error) {
+      alert(error.message);
     }
   };
 
+  // GOOGLE LOGIN
+  const googleLogin = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      console.log("USER:", user);
+
+      await setDoc(
+        doc(db, "users", user.uid),
+        {
+          uid: user.uid,
+          name: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+
+          provider: "google",
+
+          plan: "trial",
+          createdAt: Date.now(),
+          trialEndsAt: Date.now() + 3 * 24 * 60 * 60 * 1000,
+        },
+        { merge: true },
+      );
+      console.log("WRITE SUCCESS");
+      navigate("/trial");
+    } catch (error) {
+      console.error("FULL ERROR:", error);
+      console.log(error);
+      console.log(error.code);
+      console.log(error.message);
+      alert(error.message);
+    }
+  };
+  const loginUser = async () => {
+    try {
+      const result = await signInWithEmailAndPassword(
+        auth,
+        form.email,
+        form.password,
+      );
+
+      const user = result.user;
+
+      // OPTIONAL: fetch user profile from Firestore
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        console.log("USER DATA:", docSnap.data());
+      }
+
+      navigate("/trial");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  if (type !== "register") {
+    return null;
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-black text-white">
-      <div className="w-[400px] p-8 rounded-2xl bg-white/5 border border-white/10">
+      <div className="w-[420px] p-8 rounded-2xl bg-white/5 border border-white/10">
+        <h1 className="text-3xl font-bold mb-2">Start Free Trial</h1>
 
-        <h1 className="text-3xl font-bold mb-6">Login / Demo</h1>
+        <p className="text-white/50 mb-8">3-Day Trial • Watermarked Version</p>
 
-        {/* MODE SWITCH */}
-        <div className="flex gap-3 mb-6">
-          <button
-            onClick={() => setMode("demo")}
-            className={`px-4 py-2 rounded-xl ${
-              mode === "demo" ? "bg-blue-500" : "bg-white/10"
-            }`}
-          >
-            Demo
-          </button>
+        {/* USERNAME */}
+        {/* <input
+          type="text"
+          placeholder="Username"
+          value={form.username}
+          onChange={(e) =>
+            setForm({
+              ...form,
+              username: e.target.value,
+            })
+          }
+          className="w-full p-3 rounded-xl bg-black/30 border border-white/10 mb-4"
+        /> */}
 
-          <button
-            onClick={() => setMode("trial")}
-            className={`px-4 py-2 rounded-xl ${
-              mode === "trial" ? "bg-purple-500" : "bg-white/10"
-            }`}
-          >
-            Trial
-          </button>
-        </div>
-
-        {/* INPUT */}
+        {/* EMAIL */}
         <input
-          placeholder="Enter name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full p-3 rounded-xl bg-black/40 border border-white/10 mb-6"
+          type="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={(e) =>
+            setForm({
+              ...form,
+              email: e.target.value,
+            })
+          }
+          className="w-full p-3 rounded-xl bg-black/30 border border-white/10 mb-4"
         />
 
-        {/* BUTTON */}
-        <button
-          onClick={handleStart}
-          className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 font-semibold"
-        >
-          Start Now
-        </button>
+        {/* PASSWORD */}
+        <input
+          type="password"
+          placeholder="Password"
+          value={form.password}
+          onChange={(e) =>
+            setForm({
+              ...form,
+              password: e.target.value,
+            })
+          }
+          className="w-full p-3 rounded-xl bg-black/30 border border-white/10 mb-6"
+        />
 
-        <p className="text-xs text-white/50 mt-4">
-          Demo resets automatically. Trial requires verification.
-        </p>
+        {/* REGISTER */}
+        <button
+          onClick={registerUser}
+          className="w-full py-3 rounded-xl bg-purple-500 mb-5"
+        >
+          Start Free Trial
+        </button>
+        <button onClick={loginUser}>Login</button>
+
+        {/* DIVIDER */}
+        <div className="text-center text-white/40 mb-5">OR</div>
+
+        {/* GOOGLE */}
+        <button
+          onClick={googleLogin}
+          className="w-full py-3 rounded-xl bg-white text-black font-semibold"
+        >
+          Continue with Google
+        </button>
       </div>
     </div>
   );

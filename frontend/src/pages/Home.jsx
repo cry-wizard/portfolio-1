@@ -107,11 +107,11 @@ export default function Home() {
               {/* BUTTONS */}
               <div className="flex flex-wrap gap-5 mt-12">
   
-                <button className="bg-gradient-to-r from-blue-500 to-purple-500 px-10 py-5 rounded-2xl font-semibold">
+                <button onClick={() => navigate("/login?type=register")} className="bg-gradient-to-r from-blue-500 to-purple-500 px-10 py-5 rounded-2xl font-semibold">
                   Create My Portfolio
                 </button>
   
-                <button onClick={() => navigate("/login")} className="px-10 py-5 rounded-2xl border border-white/15 bg-white/[0.06]">
+                <button onClick={() => navigate("/login?type=demo")} className="px-10 py-5 rounded-2xl border border-white/15 bg-white/[0.06]">
                   View Demo
                 </button>
               </div>
