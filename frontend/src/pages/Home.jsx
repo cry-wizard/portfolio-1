@@ -167,20 +167,23 @@ export default function Home() {
           </a>
         </div>
 
-        {!loading && !isPremium && (
+        <div className="flex items-center gap-3">
+          {!loading && !isPremium && (
+            <button
+              onClick={() => navigate("/pricing")}
+              className="bg-gradient-to-r from-yellow-500 to-orange-500 px-3 py-2 md:px-6 md:py-3 rounded-xl md:rounded-2xl text-sm md:text-base font-semibold transition-all shadow-2xl"
+            >
+              Go Premium
+            </button>
+          )}
+
           <button
-            onClick={() => navigate("/pricing")}
-            className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:scale-105 px-6 py-3 rounded-2xl font-semibold transition-all shadow-2xl"
+            className="md:hidden"
+            onClick={() => setMobileMenu(!mobileMenu)}
           >
-            Go Premium
+            {mobileMenu ? <X size={28} /> : <Menu size={28} />}
           </button>
-        )}
-        <button
-          className="md:hidden"
-          onClick={() => setMobileMenu(!mobileMenu)}
-        >
-          {mobileMenu ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        </div>
       </nav>
 
       {/* HERO SECTION */}
