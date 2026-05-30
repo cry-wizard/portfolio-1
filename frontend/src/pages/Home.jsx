@@ -86,7 +86,7 @@ export default function Home() {
       {/* NAVBAR */}
       <nav className="relative z-20 flex items-center justify-between px-6 md:px-16 lg:px-28 py-6 border-b border-white/10 backdrop-blur-xl">
         <div>
-          <h1 className="text-3xl font-black tracking-tight">
+          <h1 className="text-[18px] sm:text-2xl md:text-3xl font-black tracking-tight whitespace-nowrap">
             Centennial
             <span className="bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
               Portfolio
@@ -133,7 +133,7 @@ export default function Home() {
       </nav>
 
       {/* HERO SECTION */}
-      <section className="relative z-10 px-6 md:px-16 lg:px-28 py-14">
+      <section className="relative z-10 px-6 md:px-16 lg:px-28">
         <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
           {/* LEFT */}
           <div className="flex flex-col justify-center lg:min-h-[650px]">
