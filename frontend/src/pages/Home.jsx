@@ -89,26 +89,41 @@ export default function Home() {
       {/* NAVBAR */}
       <nav className="relative z-20 flex items-center justify-between px-6 md:px-16 lg:px-28 py-6 border-b border-white/10 backdrop-blur-xl">
         {mobileMenu && (
-          <div className="md:hidden px-6 py-4 bg-black/95 border-b border-white/10">
-            <div className="flex flex-col gap-4">
+          <div className="absolute top-full right-4 mt-2 w-56 md:hidden bg-black/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl z-50">
+            <div className="flex flex-col p-4 gap-4">
               {!loading && !isPremium && (
                 <button
-                  onClick={() => navigate("/pricing")}
-                  className="text-left"
+                  onClick={() => {
+                    navigate("/pricing");
+                    setMobileMenu(false);
+                  }}
+                  className="text-left text-white hover:text-blue-400"
                 >
                   Go Premium
                 </button>
               )}
 
-              <a href="#features" onClick={() => setMobileMenu(false)}>
+              <a
+                href="#features"
+                onClick={() => setMobileMenu(false)}
+                className="text-white/80 hover:text-white"
+              >
                 Features
               </a>
 
-              <a href="#pricing" onClick={() => setMobileMenu(false)}>
+              <a
+                href="#pricing"
+                onClick={() => setMobileMenu(false)}
+                className="text-white/80 hover:text-white"
+              >
                 Pricing
               </a>
 
-              <a href="#faq" onClick={() => setMobileMenu(false)}>
+              <a
+                href="#faq"
+                onClick={() => setMobileMenu(false)}
+                className="text-white/80 hover:text-white"
+              >
                 FAQ
               </a>
             </div>
