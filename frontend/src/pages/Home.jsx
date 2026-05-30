@@ -143,14 +143,17 @@ export default function Home() {
         </div>
 
         <div className="hidden md:flex items-center gap-8 text-white/80">
-          {!loading && !isPremium && (
-            <button
-              onClick={() => navigate("/pricing")}
-              className="customize-btn"
-            >
-              Go Premium
-            </button>
-          )}
+          <button
+            onClick={() =>
+              document
+                .getElementById("hero")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
+            className="hover:text-white transition-colors"
+          >
+            Get Started
+          </button>
+
           <a href="#features" className="hover:text-white transition-colors">
             Features
           </a>
