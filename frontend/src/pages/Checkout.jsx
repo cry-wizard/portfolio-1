@@ -2,8 +2,14 @@ import React, { useState } from "react";
 import "../css/checkout.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { db } from "../services/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  doc,
+  setDoc,
+} from "firebase/firestore";
+import { auth } from "../services/firebase";
 export default function Checkout() {
   const navigate = useNavigate();
   const { planId } = useParams();
@@ -11,7 +17,7 @@ export default function Checkout() {
   const plans = {
     basic: {
       name: "Basic Plan",
-      price: "19",
+      price: "$19",
     },
 
     professional: {
@@ -81,7 +87,7 @@ export default function Checkout() {
           amount:
             planId === "basic" ? 1900 : planId === "professional" ? 3500 : 4900,
 
-          currency: "INR",
+          currency: "USD",
 
           name: "Centennial Portfolio",
 
@@ -89,6 +95,8 @@ export default function Checkout() {
 
           handler: async function (response) {
             try {
+              const user = auth.currentUser;
+
               // SAVE PAYMENT
               await addDoc(collection(db, "payments"), {
                 customerName: customer.name,
@@ -106,15 +114,18 @@ export default function Checkout() {
                 createdAt: serverTimestamp(),
               });
 
-              // PREMIUM ACCESS
-              localStorage.setItem(
-                "premiumUser",
-                JSON.stringify({
-                  premium: true,
-                  plan: planId,
-                  paymentId: response.razorpay_payment_id,
-                }),
-              );
+              // UPDATE USER PREMIUM STATUS
+              if (user) {
+                await setDoc(
+                  doc(db, "users", user.uid),
+                  {
+                    premium: true,
+                    plan: planId,
+                    premiumSince: serverTimestamp(),
+                  },
+                  { merge: true },
+                );
+              }
 
               navigate("/success");
             } catch (error) {

@@ -22,6 +22,8 @@ import githubLogo from "../assets/github.png";
 import linkedinLogo from "../assets/linkedin.png";
 
 export default function Trial() {
+  const [isPremium, setIsPremium] = useState(false);
+
   const [currentUser, setCurrentUser] = useState(null);
 
   const [username, setUsername] = useState("");
@@ -296,6 +298,18 @@ export default function Trial() {
 
         const portfolioSnap = await getDoc(portfolioRef);
 
+        const userRef = doc(db, "users", user.uid);
+
+        const userSnap = await getDoc(userRef);
+
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+
+          console.log("USER DATA:", userData);
+
+          setIsPremium(userData?.premium === true);
+        }
+
         if (portfolioSnap.exists()) {
           const data = portfolioSnap.data();
 
@@ -341,9 +355,6 @@ export default function Trial() {
 
     window.location.href = "/login?type=register";
   };
-  const premiumUser = JSON.parse(localStorage.getItem("premiumUser"));
-
-  const isPremium = premiumUser?.premium;
 
   return (
     <>

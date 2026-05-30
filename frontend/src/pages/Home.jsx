@@ -14,7 +14,13 @@ import {
   Star,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { auth, db } from "../services/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 export default function Home() {
+  const [isPremium, setIsPremium] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
 
@@ -25,6 +31,33 @@ export default function Home() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        setIsPremium(false);
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const userRef = doc(db, "users", user.uid);
+
+        const userSnap = await getDoc(userRef);
+
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+
+          setIsPremium(userData.premium === true);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
   }, []);
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
@@ -44,11 +77,11 @@ export default function Home() {
       )}
       {/* BACKGROUND GLOW */}
       <div
-        className="absolute top-0 left-0 w-[700px] h-[700px] bg-blue-500/20 rounded-full blur-[120px]"
+        className="absolute top-0 left-0 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] lg:w-[700px] lg:h-[700px] bg-blue-500/20 rounded-full blur-[120px]"
         id="fixed"
       ></div>
 
-      <div className="absolute bottom-0 right-0 w-[700px] h-[700px] bg-purple-500/20 rounded-full blur-[120px]"></div>
+      <div className="absolute bottom-0 right-0 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] lg:w-[700px] lg:h-[700px] bg-purple-500/20 rounded-full blur-[120px]"></div>
 
       {/* NAVBAR */}
       <nav className="relative z-20 flex items-center justify-between px-6 md:px-16 lg:px-28 py-6 border-b border-white/10 backdrop-blur-xl">
@@ -66,12 +99,14 @@ export default function Home() {
         </div>
 
         <div className="hidden md:flex items-center gap-8 text-white/80">
-          <button
-            onClick={() => navigate("/pricing")}
-            className="customize-btn"
-          >
-            Go Premium
-          </button>
+          {!loading && !isPremium && (
+            <button
+              onClick={() => navigate("/pricing")}
+              className="customize-btn"
+            >
+              Go Premium
+            </button>
+          )}
           <a href="#features" className="hover:text-white transition-colors">
             Features
           </a>
@@ -99,15 +134,15 @@ export default function Home() {
 
       {/* HERO SECTION */}
       <section className="relative z-10 px-6 md:px-16 lg:px-28 py-14">
-        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-24 items-center">
+        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
           {/* LEFT */}
           <div className="flex flex-col justify-center lg:min-h-[650px]">
-            <h1 className="text-6xl md:text-8xl font-black leading-[1.02] tracking-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-tight tracking-tight">
               Get Your
               <span className="block bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 text-transparent bg-clip-text">
                 Dream Portfolio
               </span>
-              <span className="block text-white text-4xl md:text-5xl mt-5">
+              <span className="block text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-5">
                 Starting Less Than a Burger 🍔
               </span>
             </h1>
@@ -140,7 +175,7 @@ export default function Home() {
             </div>
 
             {/* BUTTONS */}
-            <div className="flex flex-wrap gap-5 mt-12">
+            <div className="flex flex-col sm:flex-row gap-4 mt-12">
               <button
                 onClick={() => navigate("/login?type=register")}
                 className="bg-gradient-to-r from-blue-500 to-purple-500 px-10 py-5 rounded-2xl font-semibold"
@@ -157,7 +192,7 @@ export default function Home() {
             </div>
 
             {/* STATS */}
-            <div className="grid grid-cols-3 gap-10 mt-16 max-w-xl">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-16 max-w-xl">
               <div>
                 <h2 className="text-4xl font-black">500+</h2>
                 <p className="text-white/70">Portfolios</p>
@@ -175,7 +210,7 @@ export default function Home() {
 
           {/* RIGHT (UNCHANGED YOUR DESIGN) */}
           <div className="relative flex items-center justify-center h-full">
-            <div className="relative bg-white/[0.06] border border-white/15 backdrop-blur-2xl rounded-[32px] p-8 shadow-2xl">
+            <div className="w-full max-w-xl bg-white/[0.06] border border-white/15 backdrop-blur-2xl rounded-[24px] md:rounded-[32px] p-4 sm:p-6 md:p-8 shadow-2xl">
               {/* HEADER */}
               <div className="flex items-center justify-between mb-8">
                 <div>
@@ -268,7 +303,7 @@ export default function Home() {
             faster, discover your work easily and remember your personal brand.
           </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-24">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mt-16 lg:mt-24">
             {[
               "Look More Professional",
               "Share One Simple Link",
@@ -309,7 +344,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {[
               {
                 title: "Custom Domain",
@@ -373,7 +408,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {/* BASIC */}
             <div className="bg-white/[0.06] border border-white/10 rounded-[32px] p-10 backdrop-blur-xl">
               <h3 className="text-3xl font-black">Basic</h3>
