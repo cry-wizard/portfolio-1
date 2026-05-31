@@ -279,7 +279,17 @@ body {
   font-size: 24px;
   line-height: 1.8;
 }
+  input[type="file"] {
+    font-size: 12px;
+    width: 100%;
+    max-width: 100%;
+  }
 
+  input[type="file"]::file-selector-button {
+    font-size: 12px;
+    padding: 6px 10px;
+    margin-right: 8px;
+  }
 /* Responsive */
 
 @media (max-width: 768px) {
@@ -661,6 +671,8 @@ body {
   .projects-section {
     padding: 40px 20px;
   }
+
+
 }
 .social-icons {
   display: flex;
@@ -1343,6 +1355,96 @@ html {
     font-size: 15px;
     word-break: break-word;
   }
+  .logo-edit input[type="file"] {
+    font-size: 11px;
+    width: 100%;
+  }
+
+  .hero-edit input[type="file"] {
+    font-size: 11px;
+    width: 100%;
+  }
+  .logo-edit {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow: hidden;
+  }
+
+  .logo-edit input[type="text"],
+  .logo-edit input:not([type="file"]) {
+    width: 100%;
+    font-size: 11px;
+    padding: 4px 6px;
+  }
+
+  .logo-edit input[type="file"] {
+    width: 100%;
+    font-size: 9px;
+    overflow: hidden;
+  }
+
+  .logo-edit input[type="file"]::file-selector-button {
+    font-size: 9px;
+    padding: 3px 6px;
+  }
+
+  .remove-btn {
+    font-size: 10px;
+    padding: 4px;
+  }
+  /* MOBILE INPUT FIX */
+
+@media (max-width: 768px) {
+
+  input,
+  textarea,
+  select {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .title-input {
+    width: 100%;
+    max-width: 100%;
+    font-size: 18px;
+  }
+
+  .hero-edit input,
+  .hero-edit textarea,
+  .logo-edit input,
+  .about-card input,
+  .about-card textarea,
+  .skill-info input,
+  .project-card input,
+  .project-card textarea,
+  .contact-left input,
+  .contact-right input,
+  .footer-edit-links input,
+  .footer-bottom input {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+
+  .logo-edit {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .project-card,
+  .about-card,
+  .contact-right,
+  .opportunity-card,
+  .tech-card {
+    overflow: hidden;
+  }
+}
 }
 
 /* =========================
@@ -1409,5 +1511,13 @@ html {
 
   .logo-display {
     max-width: 140px;
+  }
+  input[type="file"] {
+    font-size: 10px;
+  }
+
+  input[type="file"]::file-selector-button {
+    font-size: 10px;
+    padding: 4px 8px;
   }
 }
