@@ -92,6 +92,8 @@ export default function Trial() {
     description: "Passionate about creating responsive applications.",
     github: "https://github.com/yourusername",
     linkedin: "https://linkedin.com/in/yourusername",
+    showGithub: true,
+    showLinkedin: true,
     image: "/profile.png",
     cv: "",
   });
@@ -284,6 +286,10 @@ export default function Trial() {
     linkedin: "https://linkedin.com/",
 
     email: "yourmail@gmail.com",
+
+    showGithub: true,
+    showLinkedin: true,
+    showEmail: true,
 
     copyright: "© 2026 Ashwani kumar chauhan. All rights reserved.",
 
@@ -537,6 +543,33 @@ export default function Trial() {
                   })
                 }
               />
+              <label className="toggle-row">
+                <input
+                  type="checkbox"
+                  checked={heroSection.showGithub}
+                  onChange={(e) =>
+                    setHeroSection({
+                      ...heroSection,
+                      showGithub: e.target.checked,
+                    })
+                  }
+                />
+                Show GitHub Icon
+              </label>
+
+              <label className="toggle-row">
+                <input
+                  type="checkbox"
+                  checked={heroSection.showLinkedin}
+                  onChange={(e) =>
+                    setHeroSection({
+                      ...heroSection,
+                      showLinkedin: e.target.checked,
+                    })
+                  }
+                />
+                Show LinkedIn Icon
+              </label>
 
               <label>Upload Profile Image</label>
 
@@ -595,13 +628,17 @@ export default function Trial() {
             </button>
 
             <div className="social-icons">
-              <a href={heroSection.github} target="_blank" rel="noreferrer">
-                <FaGithub size={28} />
-              </a>
+              {heroSection.showGithub && (
+                <a href={heroSection.github} target="_blank" rel="noreferrer">
+                  <FaGithub size={28} />
+                </a>
+              )}
 
-              <a href={heroSection.linkedin} target="_blank" rel="noreferrer">
-                <FaLinkedin size={28} />
-              </a>
+              {heroSection.showLinkedin && (
+                <a href={heroSection.linkedin} target="_blank" rel="noreferrer">
+                  <FaLinkedin size={28} />
+                </a>
+              )}
             </div>
           </div>
         </div>
@@ -1453,24 +1490,75 @@ export default function Trial() {
                     })
                   }
                 />
+                <label className="toggle-row">
+                  <input
+                    type="checkbox"
+                    checked={footerSection.showGithub}
+                    onChange={(e) =>
+                      setFooterSection({
+                        ...footerSection,
+                        showGithub: e.target.checked,
+                      })
+                    }
+                  />
+                  Show GitHub
+                </label>
+
+                <label className="toggle-row">
+                  <input
+                    type="checkbox"
+                    checked={footerSection.showLinkedin}
+                    onChange={(e) =>
+                      setFooterSection({
+                        ...footerSection,
+                        showLinkedin: e.target.checked,
+                      })
+                    }
+                  />
+                  Show LinkedIn
+                </label>
+
+                <label className="toggle-row">
+                  <input
+                    type="checkbox"
+                    checked={footerSection.showEmail}
+                    onChange={(e) =>
+                      setFooterSection({
+                        ...footerSection,
+                        showEmail: e.target.checked,
+                      })
+                    }
+                  />
+                  Show Email
+                </label>
               </div>
             ) : (
               <>
-                <a href={footerSection.github} target="_blank" rel="noreferrer">
-                  <FaGithub />
-                </a>
+                {footerSection.showGithub && (
+                  <a
+                    href={footerSection.github}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <FaGithub />
+                  </a>
+                )}
 
-                <a
-                  href={footerSection.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <FaLinkedin />
-                </a>
+                {footerSection.showLinkedin && (
+                  <a
+                    href={footerSection.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <FaLinkedin />
+                  </a>
+                )}
 
-                <a href={`mailto:${footerSection.email}`}>
-                  <FaEnvelope />
-                </a>
+                {footerSection.showEmail && (
+                  <a href={`mailto:${footerSection.email}`}>
+                    <FaEnvelope />
+                  </a>
+                )}
               </>
             )}
           </div>

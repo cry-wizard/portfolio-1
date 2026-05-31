@@ -120,6 +120,21 @@ body {
 .mobile-user-info {
   display: none;
 }
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.toggle-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #00e5ff;
+}
 
 /* HERO */
 
