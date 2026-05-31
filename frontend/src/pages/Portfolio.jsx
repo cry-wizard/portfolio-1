@@ -393,70 +393,74 @@ export default function Trial() {
 
               <input type="file" accept="image/*" onChange={handleLogoUpload} />
 
-              {/* ✅ REMOVE BUTTON */}
               {headerSection.logoImage && (
                 <button className="remove-btn" onClick={removeLogo}>
-                  Remove Logo
+                  Remove
                 </button>
               )}
             </div>
           ) : (
-            <div className="logo-display">
-              {headerSection.logoImage ? (
+            <>
+              {headerSection.logoImage && (
                 <img
                   src={headerSection.logoImage}
                   alt="logo"
                   className="logo-img"
                 />
-              ) : (
-                headerSection.logo
               )}
-            </div>
+
+              <span className="logo-display">{headerSection.logo}</span>
+            </>
           )}
         </div>
 
+        {/* Desktop Navigation */}
         <nav className={`navbar ${mobileMenu ? "mobile-open" : ""}`}>
           <a href="#home">Home</a>
           <a href="#about">About</a>
           <a href="#skills">Skills</a>
           <a href="#projects">Projects</a>
           <a href="#contact">Contact</a>
-          <button
-            className="customize-btn"
-            onClick={async () => {
-              if (editMode) {
-                await savePortfolio();
-              }
 
-              setEditMode(!editMode);
-            }}
-          >
-            ⚙️
-            {editMode ? "Done" : "Customize"}
-          </button>
-
-          {!isPremium && (
-            <button
-              onClick={() => navigate("/pricing")}
-              className="customize-btn"
-            >
-              Go Premium
-            </button>
-          )}
-          <div className="user-session">
-            <span>{username} </span>
+          <div className="mobile-user-info">
+            <span>{username}</span>
 
             <button onClick={logout} className="customize-btn">
               Signout
             </button>
           </div>
         </nav>
-        <button
-          className="mobile-menu-btn"
-          onClick={() => setMobileMenu(!mobileMenu)}
-        >
-          {mobileMenu ? <X size={28} /> : <Menu size={28} />}
-        </button>
+
+        {/* Always Visible Actions */}
+        <div className="header-actions">
+          <button
+            className="customize-btn"
+            onClick={async () => {
+              if (editMode) {
+                await savePortfolio();
+              }
+              setEditMode(!editMode);
+            }}
+          >
+            {editMode ? "💾 Save" : "⚙️ Customize"}
+          </button>
+
+          {!isPremium && (
+            <button
+              onClick={() => navigate("/pricing")}
+              className="premium-btn"
+            >
+              Premium
+            </button>
+          )}
+
+          <button
+            className="mobile-menu-btn"
+            onClick={() => setMobileMenu(!mobileMenu)}
+          >
+            {mobileMenu ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </header>
 
       {/* Hero Section */}
