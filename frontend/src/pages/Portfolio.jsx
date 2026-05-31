@@ -18,11 +18,27 @@ import {
   FaCog,
   FaPaintBrush,
 } from "react-icons/fa";
+import {
+  User,
+  Briefcase,
+  Link,
+  ShieldCheck,
+  Sparkles,
+  Globe,
+  FileText,
+  Rocket,
+  Smartphone,
+  LayoutDashboard,
+  Star,
+  Menu,
+  X,
+} from "lucide-react";
 import githubLogo from "../assets/github.png";
 import linkedinLogo from "../assets/linkedin.png";
 
 export default function Trial() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileMenu, setMobileMenu] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [isPremium, setIsPremium] = useState(false);
 
   const [currentUser, setCurrentUser] = useState(null);
@@ -362,102 +378,85 @@ export default function Trial() {
       {!isPremium && <div className="trial-watermark">TRIAL VERSION</div>}
       {/* Header */}
       <header className="dashboard header">
-        <div className="header-top">
-          <div className="logo">
-            {headerSection.logoImage ? (
-              <img
-                src={headerSection.logoImage}
-                alt="logo"
-                className="logo-img"
+        <div className="logo">
+          {editMode ? (
+            <div className="logo-edit">
+              <input
+                value={headerSection.logo}
+                onChange={(e) =>
+                  setHeaderSection({
+                    ...headerSection,
+                    logo: e.target.value,
+                  })
+                }
               />
-            ) : (
-              headerSection.logo
-            )}
-          </div>
 
-          <button
-            className="hamburger"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            ☰
-          </button>
+              <input type="file" accept="image/*" onChange={handleLogoUpload} />
+
+              {/* ✅ REMOVE BUTTON */}
+              {headerSection.logoImage && (
+                <button className="remove-btn" onClick={removeLogo}>
+                  Remove Logo
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className="logo-display">
+              {headerSection.logoImage ? (
+                <img
+                  src={headerSection.logoImage}
+                  alt="logo"
+                  className="logo-img"
+                />
+              ) : (
+                headerSection.logo
+              )}
+            </div>
+          )}
         </div>
 
-        <nav className={`navbar ${mobileMenuOpen ? "active" : ""}`}>
-          <a href="#home" onClick={() => setMobileMenuOpen(false)}>
-            Home
-          </a>
-          <a href="#about" onClick={() => setMobileMenuOpen(false)}>
-            About
-          </a>
-          <a href="#skills" onClick={() => setMobileMenuOpen(false)}>
-            Skills
-          </a>
-          <a href="#projects" onClick={() => setMobileMenuOpen(false)}>
-            Projects
-          </a>
-          <a href="#contact" onClick={() => setMobileMenuOpen(false)}>
-            Contact
-          </a>
-
-          <div className="mobile-actions">
-            <button
-              className="customize-btn"
-              onClick={async () => {
-                if (editMode) {
-                  await savePortfolio();
-                }
-                setEditMode(!editMode);
-              }}
-            >
-              {editMode ? "Done" : "Customize"}
-            </button>
-
-            {!isPremium && (
-              <button
-                className="customize-btn"
-                onClick={() => navigate("/pricing")}
-              >
-                Go Premium
-              </button>
-            )}
-
-            <button onClick={logout} className="customize-btn">
-              Signout
-            </button>
-          </div>
-        </nav>
-
-        <div className="desktop-actions">
+        <nav className={`navbar ${mobileMenu ? "mobile-open" : ""}`}>
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
           <button
             className="customize-btn"
             onClick={async () => {
               if (editMode) {
                 await savePortfolio();
               }
+
               setEditMode(!editMode);
             }}
           >
+            ⚙️
             {editMode ? "Done" : "Customize"}
           </button>
 
           {!isPremium && (
             <button
-              className="customize-btn"
               onClick={() => navigate("/pricing")}
+              className="customize-btn"
             >
               Go Premium
             </button>
           )}
-
           <div className="user-session">
-            <span>{username}</span>
+            <span>{username} </span>
 
             <button onClick={logout} className="customize-btn">
               Signout
             </button>
           </div>
-        </div>
+        </nav>
+        <button
+          className="mobile-menu-btn"
+          onClick={() => setMobileMenu(!mobileMenu)}
+        >
+          {mobileMenu ? <X size={28} /> : <Menu size={28} />}
+        </button>
       </header>
 
       {/* Hero Section */}
