@@ -515,8 +515,11 @@ export default function Home() {
                   <p>✔ Priority Support</p>
                 </div>
 
-                <button className="w-full mt-10 py-4 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-500 font-semibold hover:opacity-90 transition-opacity">
-                  Upgrade Now
+                <button
+                  onClick={() => navigate("/support")}
+                  className="w-full mt-10 py-4 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-500 font-semibold hover:opacity-90 transition-opacity"
+                >
+                  Contact Support
                 </button>
               </div>
             </div>
@@ -539,7 +542,10 @@ export default function Home() {
                 <p>✔ Premium Hosting</p>
               </div>
 
-              <button className="w-full mt-10 py-4 rounded-2xl bg-white text-black font-semibold hover:scale-[1.02] transition-transform">
+              <button
+                onClick={() => navigate("/support")}
+                className="w-full mt-10 py-4 rounded-2xl bg-white text-black font-semibold hover:scale-[1.02] transition-transform"
+              >
                 Contact Sales
               </button>
             </div>
