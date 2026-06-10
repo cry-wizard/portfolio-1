@@ -16,6 +16,7 @@ const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const RefundPolicy = lazy(() => import("./pages/RefundPolicy"));
 const TermCondition = lazy(() => import("./pages/TermCondition"));
 const Support = lazy(() => import("./pages/support"));
+const LiveChat = lazy(() => import("./pages/livechat"));
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/refund-policy" element={<RefundPolicy />} />
           <Route path="/term-condition" element={<TermCondition />} />
           <Route path="/support" element={<Support />} />
+          <Route path="/livechat" element={<LiveChat />} />
         </Routes>
       </Suspense>
     </>

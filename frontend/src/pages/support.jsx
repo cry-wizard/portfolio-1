@@ -51,7 +51,7 @@ export default function Support() {
 
             <button
               className="px-6 py-3 rounded-xl bg-green-500 hover:bg-green-600 transition"
-              onClick={() => alert("Live chat coming soon")}
+              onClick={() => navigate("/livechat")}
             >
               Start Chat
             </button>
