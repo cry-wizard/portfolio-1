@@ -74,8 +74,8 @@ export default function Navbar() {
           <button onClick={() => navigate("/login?type=register")}>
             Use Trial
           </button>
-          <button onClick={() => navigate("/")}>Feature</button>
-          <button onClick={() => navigate("/")}>FAQ</button>
+          <button onClick={() => navigate("/features")}>Feature</button>
+          <button onClick={() => navigate("/faq")}>FAQ</button>
           <button onClick={() => navigate("/support")}>Support</button>
         </div>
       )}
