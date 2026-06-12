@@ -118,6 +118,14 @@ export default function Navbar() {
           <button onClick={() => navigate("/features")}>Feature</button>
           <button onClick={() => navigate("/faq")}>FAQ</button>
           <button onClick={() => navigate("/support")}>Support</button>
+          {!hidePremiumButton && !loading && !isPremium && (
+            <button
+              onClick={() => navigate("/pricing")}
+              className="bg-gradient-to-r from-yellow-500 to-orange-500 px-5 py-2 rounded-xl font-semibold"
+            >
+              Go Premium
+            </button>
+          )}
         </div>
       )}
     </>
