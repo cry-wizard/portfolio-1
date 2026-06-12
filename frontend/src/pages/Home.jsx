@@ -487,7 +487,10 @@ export default function Home() {
                 <p>✔ Mobile Friendly</p>
               </div>
 
-              <button className="w-full mt-10 py-4 rounded-2xl bg-white text-black font-semibold hover:scale-[1.02] transition-transform">
+              <button
+                onClick={() => navigate("/plan/basic")}
+                className="w-full mt-10 py-4 rounded-2xl bg-white text-black font-semibold hover:scale-[1.02] transition-transform"
+              >
                 Get Started
               </button>
             </div>
