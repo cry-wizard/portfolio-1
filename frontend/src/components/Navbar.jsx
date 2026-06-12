@@ -56,7 +56,7 @@ export default function Navbar() {
             onClick={() => navigate("/pricing")}
             className="lg:hidden bg-gradient-to-r from-yellow-500 to-orange-500 px-3 py-2 rounded-xl text-sm font-semibold"
           >
-            Premium
+            Go Premium
           </button>
         )}
 
