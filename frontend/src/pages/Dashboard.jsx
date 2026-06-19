@@ -2,6 +2,7 @@ import React from "react";
 import "../css/demo_dashboard.css";
 import { useEffect, useState } from "react";
 import { Download } from "lucide-react";
+import { HiMenu, HiX } from "react-icons/hi";
 import {
   FaGithub,
   FaExternalLinkAlt,
@@ -25,6 +26,8 @@ const HeroSection = () => {
     cog: <FaCog />,
     hobby: <FaPaintBrush />,
   };
+
+  const [menuOpen, setMenuOpen] = useState(false);
   const getIcon = (key) => iconMap[key] || <FaCode />;
 
   const [editMode, setEditMode] = useState(false);
@@ -400,20 +403,41 @@ const HeroSection = () => {
             </div>
           )}
         </div>
-
-        <nav className="navbar">
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
-          <a href="#skills">Skills</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
+        <div className="header-actions">
           <button
             className="customize-btn"
             onClick={() => setEditMode(!editMode)}
           >
             ⚙️
-            {editMode ? "Done" : "Customize"}
           </button>
+
+          <button
+            className="mobile-menu-btn"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? <HiX size={28} /> : <HiMenu size={28} />}
+          </button>
+        </div>
+        <nav className={`navbar ${menuOpen ? "mobile-open" : ""}`}>
+          <a href="#home" onClick={() => setMenuOpen(false)}>
+            Home
+          </a>
+
+          <a href="#about" onClick={() => setMenuOpen(false)}>
+            About
+          </a>
+
+          <a href="#skills" onClick={() => setMenuOpen(false)}>
+            Skills
+          </a>
+
+          <a href="#projects" onClick={() => setMenuOpen(false)}>
+            Projects
+          </a>
+
+          <a href="#contact" onClick={() => setMenuOpen(false)}>
+            Contact
+          </a>
         </nav>
       </header>
 
