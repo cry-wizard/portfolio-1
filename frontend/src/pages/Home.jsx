@@ -98,7 +98,7 @@ export default function Home() {
                     ?.scrollIntoView({ behavior: "smooth" });
                   setMobileMenu(false);
                 }}
-                className="text-2xl font-semibold text-white hover:text-blue-400"
+                className="text-left text-white hover:text-blue-400"
               >
                 Get Started
               </button>
