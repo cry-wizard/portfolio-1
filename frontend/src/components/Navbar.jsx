@@ -42,7 +42,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="flex items-center justify-between px-4 sm:px-6 md:px-10 lg:px-28 py-6 border-b border-white/10">
+      <nav className="sticky top-0 z-50 flex items-center justify-between px-4 sm:px-6 md:px-10 lg:px-28 py-6 border-b border-white/10 bg-black">
         <div onClick={() => navigate("/")} className="cursor-pointer">
           <h1 className="text-2xl sm:text-3xl font-black">
             Centennial
