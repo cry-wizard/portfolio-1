@@ -89,8 +89,8 @@ export default function Home() {
       {/* NAVBAR */}
       <nav className="relative z-20 flex items-center justify-between px-6 md:px-16 lg:px-28 py-6 border-b border-white/10 backdrop-blur-xl">
         {mobileMenu && (
-          <div className="absolute top-full right-4 mt-2 w-56 md:hidden bg-black/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl z-50">
-            <div className="flex flex-col p-4 gap-4">
+          <div className="fixed inset-0 md:hidden bg-black/95 backdrop-blur-xl flex items-center justify-center z-50">
+            <div className="flex flex-col items-center gap-8 text-center">
               <button
                 onClick={() => {
                   document
@@ -234,7 +234,7 @@ export default function Home() {
                 onClick={() => navigate("/login?type=register")}
                 className="bg-gradient-to-r from-blue-500 to-purple-500 px-10 py-5 rounded-2xl font-semibold"
               >
-                Create My Portfolio
+                Create Portfolio
               </button>
               <button
                 onClick={() => navigate("/login?type=login")}
