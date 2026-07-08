@@ -90,6 +90,13 @@ export default function Home() {
       <nav className="relative z-20 flex items-center justify-between px-6 md:px-16 lg:px-28 py-6 border-b border-white/10 backdrop-blur-xl">
         {mobileMenu && (
           <div className="fixed inset-0 z-50 md:hidden flex items-center justify-center bg-black/95 backdrop-blur-xl">
+            {/* Close Button */}
+            <button
+              onClick={() => setMobileMenu(false)}
+              className="absolute top-6 right-6"
+            >
+              <X size={32} />
+            </button>
             <div className="flex flex-col items-center text-center gap-8">
               <button
                 onClick={() => {
