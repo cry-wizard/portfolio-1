@@ -63,7 +63,7 @@ export default function Home() {
     return () => unsubscribe();
   }, []);
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden">
+    <div className="min-h-screen bg-black text-white overflow-x-hidden">
       {show && (
         <div className="fixed bottom-8 right-0 z-50">
           <button
@@ -87,10 +87,174 @@ export default function Home() {
       <div className="absolute bottom-0 right-0 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] lg:w-[700px] lg:h-[700px] bg-purple-500/20 rounded-full blur-[120px]"></div>
 
       {/* NAVBAR */}
-      <nav className="relative z-20 flex items-center justify-between px-6 md:px-16 lg:px-28 py-6 border-b border-white/10 backdrop-blur-xl">
+      {/* <div className="sticky top-0 z-20 bg-black/95 backdrop-blur-xl border-b border-white/10 md:static md:bg-transparent md:backdrop-blur-none md:border-b-0">
+        <nav className="flex items-center justify-between px-6 md:px-16 lg:px-28 py-6 border-b border-white/10 backdrop-blur-xl md:static md:bg-transparent md:backdrop-blur-none">
+          <div>
+            <h1 className="text-[18px] sm:text-2xl md:text-3xl font-black tracking-tight whitespace-nowrap">
+              Centennial
+              <span className="bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
+                Portfolio
+              </span>
+            </h1>
+
+            <p className="text-xs text-white/60 mt-1 tracking-[3px] uppercase">
+              Build Your Digital Identity
+            </p>
+          </div>
+
+          <div className="hidden md:flex items-center gap-8 text-white/80 nav-links">
+            <button
+              onClick={() =>
+                document
+                  .getElementById("hero")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+              className="hover:text-white transition-colors"
+            >
+              Get Started
+            </button>
+
+            <a href="#features" className="hover:text-white transition-colors">
+              Features
+            </a>
+
+            <a href="#pricing" className="hover:text-white transition-colors">
+              Pricing
+            </a>
+
+            <a href="#faq" className="hover:text-white transition-colors">
+              FAQ
+            </a>
+          </div>
+
+          <div className="flex items-center gap-3 nav-right">
+            {!loading && !isPremium && (
+              <button
+                onClick={() => navigate("/pricing")}
+                className="go-premium-btn bg-gradient-to-r from-yellow-500 to-orange-500 px-3 py-2 md:px-6 md:py-3 rounded-xl md:rounded-2xl text-sm md:text-base font-semibold transition-all shadow-2xl"
+              >
+                Go Premium
+              </button>
+            )}
+
+            <button
+              className="block sm:hidden hamburger-btn"
+              onClick={() => setMobileMenu(!mobileMenu)}
+            >
+              {mobileMenu ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          </div>
+        </nav>
+
         {mobileMenu && (
-          <div className="absolute top-full right-4 mt-2 w-56 md:hidden bg-black/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl z-50">
-            <div className="flex flex-col p-4 gap-4">
+          <div className="px-0 pb-2 sm:hidden">
+            <div className="w-full bg-black/95 backdrop-blur-xl border-x-0 border-b-0 border-white/10 shadow-2xl rounded-none">
+              <div className="flex flex-row flex-wrap items-stretch p-0 gap-0">
+                <button
+                  onClick={() => {
+                    document
+                      .getElementById("hero")
+                      ?.scrollIntoView({ behavior: "smooth" });
+                    setMobileMenu(false);
+                  }}
+                  className="flex-1 min-w-[70px] text-center text-sm text-white hover:text-blue-400 px-2 py-3 rounded-lg hover:bg-white/10"
+                >
+                  Get Started
+                </button>
+
+                <a
+                  href="#features"
+                  onClick={() => setMobileMenu(false)}
+                  className="flex-1 min-w-[70px] text-center text-sm text-white/80 hover:text-white px-2 py-3 rounded-lg hover:bg-white/10"
+                >
+                  Features
+                </a>
+
+                <a
+                  href="#pricing"
+                  onClick={() => setMobileMenu(false)}
+                  className="flex-1 min-w-[70px] text-center text-sm text-white/80 hover:text-white px-2 py-3 rounded-lg hover:bg-white/10"
+                >
+                  Pricing
+                </a>
+
+                <a
+                  href="#faq"
+                  onClick={() => setMobileMenu(false)}
+                  className="flex-1 min-w-[70px] text-center text-sm text-white/80 hover:text-white px-2 py-3 rounded-lg hover:bg-white/10"
+                >
+                  FAQ
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+      </div> */}
+
+      {/* NAVBAR */}
+      <div className="sticky-nav w-full bg-black/95 backdrop-blur-xl border-b border-white/10 md:bg-black/95 md:backdrop-blur-xl md:border-b md:border-white/10">
+        <nav className="flex items-center justify-between px-6 md:px-16 lg:px-28 py-6">
+          <div>
+            <h1 className="text-[18px] sm:text-2xl md:text-3xl font-black tracking-tight whitespace-nowrap">
+              Centennial
+              <span className="bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
+                Portfolio
+              </span>
+            </h1>
+
+            <p className="text-xs text-white/60 mt-1 tracking-[3px] uppercase">
+              Build Your Digital Identity
+            </p>
+          </div>
+
+          <div className="hidden md:flex items-center gap-8 text-white/80 nav-links">
+            <button
+              onClick={() =>
+                document
+                  .getElementById("hero")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+              className="hover:text-white transition-colors"
+            >
+              Get Started
+            </button>
+
+            <a href="#features" className="hover:text-white transition-colors">
+              Features
+            </a>
+
+            <a href="#pricing" className="hover:text-white transition-colors">
+              Pricing
+            </a>
+
+            <a href="#faq" className="hover:text-white transition-colors">
+              FAQ
+            </a>
+          </div>
+
+          <div className="flex items-center gap-3 nav-right">
+            {!loading && !isPremium && (
+              <button
+                onClick={() => navigate("/pricing")}
+                className="go-premium-btn bg-gradient-to-r from-yellow-500 to-orange-500 px-3 py-2 md:px-6 md:py-3 rounded-xl md:rounded-2xl text-sm md:text-base font-semibold transition-all shadow-2xl"
+              >
+                Go Premium
+              </button>
+            )}
+
+            <button
+              className="block sm:hidden hamburger-btn"
+              onClick={() => setMobileMenu(!mobileMenu)}
+            >
+              {mobileMenu ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          </div>
+        </nav>
+
+        {/* Mobile Menu - Sticky below navbar */}
+        {mobileMenu && (
+          <div className="mobile-menu-panel sm:hidden bg-black/95 backdrop-blur-xl border-t border-white/10">
+            <div className="flex flex-row flex-wrap items-stretch p-0 gap-0">
               <button
                 onClick={() => {
                   document
@@ -98,7 +262,7 @@ export default function Home() {
                     ?.scrollIntoView({ behavior: "smooth" });
                   setMobileMenu(false);
                 }}
-                className="text-left text-white hover:text-blue-400"
+                className="flex-1 min-w-[70px] text-center text-sm text-white hover:text-blue-400 px-2 py-3 rounded-lg hover:bg-white/10"
               >
                 Get Started
               </button>
@@ -106,7 +270,7 @@ export default function Home() {
               <a
                 href="#features"
                 onClick={() => setMobileMenu(false)}
-                className="text-white/80 hover:text-white"
+                className="flex-1 min-w-[70px] text-center text-sm text-white/80 hover:text-white px-2 py-3 rounded-lg hover:bg-white/10"
               >
                 Features
               </a>
@@ -114,7 +278,7 @@ export default function Home() {
               <a
                 href="#pricing"
                 onClick={() => setMobileMenu(false)}
-                className="text-white/80 hover:text-white"
+                className="flex-1 min-w-[70px] text-center text-sm text-white/80 hover:text-white px-2 py-3 rounded-lg hover:bg-white/10"
               >
                 Pricing
               </a>
@@ -122,72 +286,17 @@ export default function Home() {
               <a
                 href="#faq"
                 onClick={() => setMobileMenu(false)}
-                className="text-white/80 hover:text-white"
+                className="flex-1 min-w-[70px] text-center text-sm text-white/80 hover:text-white px-2 py-3 rounded-lg hover:bg-white/10"
               >
                 FAQ
               </a>
             </div>
           </div>
         )}
-        <div>
-          <h1 className="text-[18px] sm:text-2xl md:text-3xl font-black tracking-tight whitespace-nowrap">
-            Centennial
-            <span className="bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
-              Portfolio
-            </span>
-          </h1>
-
-          <p className="text-xs text-white/60 mt-1 tracking-[3px] uppercase">
-            Build Your Digital Identity
-          </p>
-        </div>
-
-        <div className="hidden md:flex items-center gap-8 text-white/80">
-          <button
-            onClick={() =>
-              document
-                .getElementById("hero")
-                ?.scrollIntoView({ behavior: "smooth" })
-            }
-            className="hover:text-white transition-colors"
-          >
-            Get Started
-          </button>
-
-          <a href="#features" className="hover:text-white transition-colors">
-            Features
-          </a>
-
-          <a href="#pricing" className="hover:text-white transition-colors">
-            Pricing
-          </a>
-
-          <a href="#faq" className="hover:text-white transition-colors">
-            FAQ
-          </a>
-        </div>
-
-        <div className="flex items-center gap-3">
-          {!loading && !isPremium && (
-            <button
-              onClick={() => navigate("/pricing")}
-              className="bg-gradient-to-r from-yellow-500 to-orange-500 px-3 py-2 md:px-6 md:py-3 rounded-xl md:rounded-2xl text-sm md:text-base font-semibold transition-all shadow-2xl"
-            >
-              Go Premium
-            </button>
-          )}
-
-          <button
-            className="md:hidden"
-            onClick={() => setMobileMenu(!mobileMenu)}
-          >
-            {mobileMenu ? <X size={28} /> : <Menu size={28} />}
-          </button>
-        </div>
-      </nav>
+      </div>
 
       {/* HERO SECTION */}
-      <section className="relative z-10 px-6 md:px-16 lg:px-28">
+      <section className="home-main-content relative z-10 px-6 md:px-16 lg:px-28">
         <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
           {/* LEFT */}
           <div className="flex flex-col justify-center lg:min-h-[650px]">
@@ -234,7 +343,7 @@ export default function Home() {
                 onClick={() => navigate("/login?type=register")}
                 className="bg-gradient-to-r from-blue-500 to-purple-500 px-10 py-5 rounded-2xl font-semibold"
               >
-                Create Portfolio
+                Create My Portfolio
               </button>
               <button
                 onClick={() => navigate("/login?type=login")}
