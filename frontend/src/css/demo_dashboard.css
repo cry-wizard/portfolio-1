@@ -126,7 +126,7 @@ body {
   padding: 10px 16px;
   border: none;
   border-radius: 10px;
-  background: #22d3ee;
+  background: #eab308; /* yellow-500 */
   color: #07122b;
   font-weight: 700;
   cursor: pointer;
