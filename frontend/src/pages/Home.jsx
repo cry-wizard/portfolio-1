@@ -260,7 +260,7 @@ export default function Home() {
                   document
                     .getElementById("hero")
                     ?.scrollIntoView({ behavior: "smooth" });
-                  setMobileMenu(false);
+              
                 }}
                 className="flex-1 min-w-[70px] text-center text-sm text-white hover:text-blue-400 px-2 py-3 rounded-lg hover:bg-white/10"
               >
@@ -269,7 +269,7 @@ export default function Home() {
 
               <a
                 href="#features"
-                onClick={() => setMobileMenu(false)}
+              
                 className="flex-1 min-w-[70px] text-center text-sm text-white/80 hover:text-white px-2 py-3 rounded-lg hover:bg-white/10"
               >
                 Features
@@ -277,7 +277,7 @@ export default function Home() {
 
               <a
                 href="#pricing"
-                onClick={() => setMobileMenu(false)}
+              
                 className="flex-1 min-w-[70px] text-center text-sm text-white/80 hover:text-white px-2 py-3 rounded-lg hover:bg-white/10"
               >
                 Pricing
@@ -285,7 +285,7 @@ export default function Home() {
 
               <a
                 href="#faq"
-                onClick={() => setMobileMenu(false)}
+            
                 className="flex-1 min-w-[70px] text-center text-sm text-white/80 hover:text-white px-2 py-3 rounded-lg hover:bg-white/10"
               >
                 FAQ
