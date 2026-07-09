@@ -125,11 +125,6 @@ body {
   box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
 }
 
-
-.mobile-nav-panel {
-  display: none;
-}
-
 .mobile-user-info {
   display: none;
 }
