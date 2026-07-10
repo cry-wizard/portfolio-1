@@ -4,14 +4,31 @@ export default function PublicPortfolio() {
   const [portfolio, setPortfolio] = useState(null);
 
   useEffect(() => {
-    const host = window.location.hostname;
-    const subdomain = host.split(".")[0];
+    const loadPortfolio = async () => {
+      try {
+        const host = window.location.hostname;
+        const subdomain = host.split(".")[0];
 
-    fetch(
-      `https://portfoliobackend.centennialinfotech.com/api/public/${subdomain}`,
-    )
-      .then((res) => res.json())
-      .then(setPortfolio);
+        const res = await fetch(
+          `https://portfoliobackend.centennialinfotech.com/api/public/${subdomain}`,
+        );
+
+        console.log("Status:", res.status);
+
+        if (!res.ok) {
+          throw new Error("Portfolio not found");
+        }
+
+        const data = await res.json();
+        console.log(data);
+
+        setPortfolio(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    loadPortfolio();
   }, []);
 
   if (!portfolio) return <h2>Loading...</h2>;
