@@ -61,7 +61,7 @@ export default function Login() {
       setUser(currentUser);
 
       if (currentUser) {
-        navigate("/portfolio");
+        navigate("/choose-subdomain");
       }
 
       setAuthLoading(false);
@@ -145,7 +145,7 @@ export default function Login() {
         trialEndsAt: Date.now() + 3 * 24 * 60 * 60 * 1000,
       });
 
-      navigate("/portfolio");
+      navigate("/choose-subdomain");
     } catch (error) {
       setErrorMsg(getFirebaseError(error));
     }
@@ -178,7 +178,7 @@ export default function Login() {
         { merge: true },
       );
       console.log("WRITE SUCCESS");
-      navigate("/portfolio");
+      navigate("/choose-subdomain");
     } catch (error) {
       console.error(error);
       setErrorMsg(getFirebaseError(error));
