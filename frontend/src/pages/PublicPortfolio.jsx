@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 import "../css/portfolio.css";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import { auth, db } from "../services/firebase";
 import {
   FaGithub,
@@ -30,29 +37,22 @@ export default function PublicPortfolio() {
   const [editMode, setEditMode] = useState(false);
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
+
   useEffect(() => {
     const getUserBySubdomain = async () => {
       try {
-        // Get subdomain from URL
         const host = window.location.hostname;
         const subdomain = host.split(".")[0].toLowerCase();
 
         console.log("Host:", host);
-        console.log("Searching for:", subdomain);
+        console.log("Searching:", subdomain);
 
-        // Search user by subdomain
         const q = query(
           collection(db, "users"),
           where("subdomain", "==", subdomain),
         );
 
         const snapshot = await getDocs(q);
-
-        console.log("Documents found:", snapshot.size);
-
-        snapshot.forEach((doc) => {
-          console.log(doc.id, doc.data());
-        });
 
         if (snapshot.empty) {
           setError("No user found for this subdomain.");
@@ -69,7 +69,18 @@ export default function PublicPortfolio() {
 
         console.log("User Found:", userData);
 
-        setUser(userData);
+        // Get Portfolio Data
+        const portfolioRef = doc(db, "trialData", userData.uid);
+
+        const portfolioSnap = await getDoc(portfolioRef);
+
+        if (portfolioSnap.exists()) {
+          console.log("Portfolio Found:", portfolioSnap.data());
+
+          setPortfolio(portfolioSnap.data());
+        } else {
+          console.log("No portfolio found for user");
+        }
       } catch (err) {
         console.error(err);
         setError(err.message);
@@ -77,8 +88,6 @@ export default function PublicPortfolio() {
 
       setLoading(false);
     };
-
-    getUserBySubdomain();
   }, []);
 
   if (loading) {
