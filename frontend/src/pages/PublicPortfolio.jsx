@@ -48,6 +48,12 @@ export default function PublicPortfolio() {
 
         const snapshot = await getDocs(q);
 
+        console.log("Documents found:", snapshot.size);
+
+        snapshot.forEach((doc) => {
+          console.log(doc.id, doc.data());
+        });
+
         if (snapshot.empty) {
           setError("No user found for this subdomain.");
           setLoading(false);
