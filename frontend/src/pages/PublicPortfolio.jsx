@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../css/portfolio.css";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { auth, db } from "../services/firebase";
 import {
   FaGithub,
@@ -20,7 +20,7 @@ import {
 } from "react-icons/fa";
 import { Menu, X } from "lucide-react";
 
-export default function Trial() {
+export default function PublicPortfolio() {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isPremium, setIsPremium] = useState(false);
@@ -28,6 +28,69 @@ export default function Trial() {
   const [username, setUsername] = useState("");
   const navigate = useNavigate();
   const [editMode, setEditMode] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  useEffect(() => {
+    const getUserBySubdomain = async () => {
+      try {
+        // Get subdomain from URL
+        const host = window.location.hostname;
+        const subdomain = host.split(".")[0];
+
+        console.log("Host:", host);
+        console.log("Subdomain:", subdomain);
+
+        // Search user by subdomain
+        const q = query(
+          collection(db, "users"),
+          where("subdomain", "==", subdomain),
+        );
+
+        const snapshot = await getDocs(q);
+
+        if (snapshot.empty) {
+          setError("No user found for this subdomain.");
+          setLoading(false);
+          return;
+        }
+
+        const userDoc = snapshot.docs[0];
+
+        const userData = {
+          uid: userDoc.id,
+          ...userDoc.data(),
+        };
+
+        console.log("User Found:", userData);
+
+        setUser(userData);
+      } catch (err) {
+        console.error(err);
+        setError(err.message);
+      }
+
+      setLoading(false);
+    };
+
+    getUserBySubdomain();
+  }, []);
+
+  if (loading) {
+    return (
+      <div style={{ padding: 40 }}>
+        <h2>Loading...</h2>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div style={{ padding: 40 }}>
+        <h2>{error}</h2>
+      </div>
+    );
+  }
 
   const iconMap = {
     code: <FaCode />,
