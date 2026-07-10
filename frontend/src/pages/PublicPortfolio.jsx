@@ -61,33 +61,55 @@ export default function PublicPortfolio() {
         }
 
         const userDoc = snapshot.docs[0];
+        const uid = userDoc.id;
 
-        const userData = {
-          uid: userDoc.id,
-          ...userDoc.data(),
-        };
+        console.log("User UID:", uid);
 
-        console.log("User Found:", userData);
+        const portfolioSnap = await getDoc(doc(db, "trialData", uid));
 
-        // Get Portfolio Data
-        const portfolioRef = doc(db, "trialData", userData.uid);
-
-        const portfolioSnap = await getDoc(portfolioRef);
-
-        if (portfolioSnap.exists()) {
-          console.log("Portfolio Found:", portfolioSnap.data());
-
-          setPortfolio(portfolioSnap.data());
-        } else {
-          console.log("No portfolio found for user");
+        if (!portfolioSnap.exists()) {
+          setError("Portfolio not found.");
+          setLoading(false);
+          return;
         }
+
+        const data = portfolioSnap.data();
+
+        console.log("Portfolio:", data);
+
+        if (data.headerSection) setHeaderSection(data.headerSection);
+
+        if (data.heroSection) {
+          setHeroSection({
+            ...data.heroSection,
+            showGithub: data.heroSection.showGithub ?? true,
+            showLinkedin: data.heroSection.showLinkedin ?? true,
+          });
+        }
+
+        if (data.aboutSection) setAboutSection(data.aboutSection);
+        if (data.skillsSection) setSkillsSection(data.skillsSection);
+        if (data.projectsSection) setProjectsSection(data.projectsSection);
+        if (data.contactSection) setContactSection(data.contactSection);
+
+        if (data.footerSection) {
+          setFooterSection({
+            ...data.footerSection,
+            showGithub: data.footerSection.showGithub ?? true,
+            showLinkedin: data.footerSection.showLinkedin ?? true,
+            showEmail: data.footerSection.showEmail ?? true,
+          });
+        }
+
+        setLoading(false);
       } catch (err) {
         console.error(err);
         setError(err.message);
+        setLoading(false);
       }
-
-      setLoading(false);
     };
+
+    getUserBySubdomain();
   }, []);
 
   if (loading) {
@@ -231,162 +253,6 @@ export default function PublicPortfolio() {
     copyright: "© 2026 Ashwani kumar chauhan. All rights reserved.",
     location: "Lucknow, Uttar Pradesh, India",
   });
-
-  // Image upload handlers
-  const handleLogoUpload = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setHeaderSection({ ...headerSection, logoImage: reader.result });
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const removeLogo = () => {
-    setHeaderSection({ ...headerSection, logoImage: "" });
-  };
-
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setHeroSection({ ...heroSection, image: reader.result });
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleCVUpload = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setHeroSection({ ...heroSection, cv: reader.result });
-    };
-    reader.readAsDataURL(file);
-  };
-
-  // Firebase Auth & Data
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        setCurrentUser(null);
-        navigate("/login");
-        return;
-      }
-
-      try {
-        await user.getIdToken();
-        setCurrentUser(user);
-        setUsername(user.displayName || user.email.split("@")[0]);
-
-        const portfolioRef = doc(db, "trialData", user.uid);
-        const portfolioSnap = await getDoc(portfolioRef);
-
-        const userRef = doc(db, "users", user.uid);
-        const userSnap = await getDoc(userRef);
-
-        if (userSnap.exists()) {
-          const userData = userSnap.data();
-          setIsPremium(userData?.premium === true);
-        }
-
-        if (portfolioSnap.exists()) {
-          const data = portfolioSnap.data();
-
-          if (data.headerSection) setHeaderSection(data.headerSection);
-
-          if (data.heroSection) {
-            // ✅ FIX: Ensure booleans are preserved
-            setHeroSection({
-              ...data.heroSection,
-              showGithub:
-                data.heroSection.showGithub !== undefined
-                  ? data.heroSection.showGithub
-                  : true,
-              showLinkedin:
-                data.heroSection.showLinkedin !== undefined
-                  ? data.heroSection.showLinkedin
-                  : true,
-            });
-          }
-
-          if (data.aboutSection) setAboutSection(data.aboutSection);
-          if (data.skillsSection) setSkillsSection(data.skillsSection);
-          if (data.projectsSection) setProjectsSection(data.projectsSection);
-          if (data.contactSection) setContactSection(data.contactSection);
-
-          if (data.footerSection) {
-            // ✅ FIX: Ensure booleans are preserved
-            setFooterSection({
-              ...data.footerSection,
-              showGithub:
-                data.footerSection.showGithub !== undefined
-                  ? data.footerSection.showGithub
-                  : true,
-              showLinkedin:
-                data.footerSection.showLinkedin !== undefined
-                  ? data.footerSection.showLinkedin
-                  : true,
-              showEmail:
-                data.footerSection.showEmail !== undefined
-                  ? data.footerSection.showEmail
-                  : true,
-            });
-          }
-        }
-      } catch (error) {
-        console.error("Firestore Error:", error);
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-  // ✅ FIXED Save function
-  const savePortfolio = async () => {
-    if (!currentUser) return;
-
-    try {
-      // Debug: Check what we're saving
-      console.log("Saving heroSection:", heroSection);
-      console.log("showGithub:", heroSection.showGithub);
-      console.log("showLinkedin:", heroSection.showLinkedin);
-
-      await setDoc(doc(db, "trialData", currentUser.uid), {
-        headerSection,
-        heroSection: {
-          ...heroSection,
-          // Ensure booleans are explicitly saved
-          showGithub: heroSection.showGithub === true,
-          showLinkedin: heroSection.showLinkedin === true,
-        },
-        aboutSection,
-        skillsSection,
-        projectsSection,
-        contactSection,
-        footerSection: {
-          ...footerSection,
-          showGithub: footerSection.showGithub === true,
-          showLinkedin: footerSection.showLinkedin === true,
-          showEmail: footerSection.showEmail === true,
-        },
-        updatedAt: Date.now(),
-      });
-
-      console.log("Portfolio Saved Successfully!");
-      alert("Portfolio saved successfully! ✅");
-    } catch (error) {
-      console.error("Error saving portfolio:", error);
-      alert("Error saving portfolio: " + error.message);
-    }
-  };
-
-  const logout = async () => {
-    await signOut(auth);
-    window.location.href = "/login?type=register";
-  };
 
   return (
     <>
