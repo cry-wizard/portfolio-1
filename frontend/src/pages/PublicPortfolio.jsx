@@ -1375,161 +1375,44 @@ export default function PublicPortfolio() {
           </div>
 
           <div className="footer-icons">
-            {editMode ? (
-              <div className="footer-edit-links">
-                <div className="url-input-group">
-                  <label className="input-label">GitHub Username</label>
-                  <div className="url-input-wrapper">
-                    <span className="url-prefix">https://github.com/</span>
-                    <input
-                      value={footerSection.githubUsername}
-                      onChange={(e) =>
-                        setFooterSection({
-                          ...footerSection,
-                          githubUsername: e.target.value,
-                        })
-                      }
-                      placeholder="yourusername"
-                    />
-                  </div>
-                </div>
+            <>
+              {footerSection.showGithub && (
+                <a
+                  href={`https://github.com/${footerSection.githubUsername}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FaGithub />
+                </a>
+              )}
 
-                <div className="url-input-group">
-                  <label className="input-label">LinkedIn Username</label>
-                  <div className="url-input-wrapper">
-                    <span className="url-prefix">https://linkedin.com/in/</span>
-                    <input
-                      value={footerSection.linkedinUsername}
-                      onChange={(e) =>
-                        setFooterSection({
-                          ...footerSection,
-                          linkedinUsername: e.target.value,
-                        })
-                      }
-                      placeholder="yourusername"
-                    />
-                  </div>
-                </div>
+              {footerSection.showLinkedin && (
+                <a
+                  href={`https://linkedin.com/in/${footerSection.linkedinUsername}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FaLinkedin />
+                </a>
+              )}
 
-                <input
-                  placeholder="Email"
-                  value={footerSection.email}
-                  onChange={(e) =>
-                    setFooterSection({
-                      ...footerSection,
-                      email: e.target.value,
-                    })
-                  }
-                  placeholder="Enter Email"
-                />
-                <label className="toggle-row">
-                  <input
-                    type="checkbox"
-                    checked={footerSection.showGithub}
-                    onChange={(e) =>
-                      setFooterSection({
-                        ...footerSection,
-                        showGithub: e.target.checked,
-                      })
-                    }
-                  />
-                  Show GitHub
-                </label>
-
-                <label className="toggle-row">
-                  <input
-                    type="checkbox"
-                    checked={footerSection.showLinkedin}
-                    onChange={(e) =>
-                      setFooterSection({
-                        ...footerSection,
-                        showLinkedin: e.target.checked,
-                      })
-                    }
-                  />
-                  Show LinkedIn
-                </label>
-
-                <label className="toggle-row">
-                  <input
-                    type="checkbox"
-                    checked={footerSection.showEmail}
-                    onChange={(e) =>
-                      setFooterSection({
-                        ...footerSection,
-                        showEmail: e.target.checked,
-                      })
-                    }
-                  />
-                  Show Email
-                </label>
-              </div>
-            ) : (
-              <>
-                {footerSection.showGithub && (
-                  <a
-                    href={`https://github.com/${footerSection.githubUsername}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <FaGithub />
-                  </a>
-                )}
-
-                {footerSection.showLinkedin && (
-                  <a
-                    href={`https://linkedin.com/in/${footerSection.linkedinUsername}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <FaLinkedin />
-                  </a>
-                )}
-
-                {footerSection.showEmail && (
-                  <a href={`mailto:${footerSection.email}`}>
-                    <FaEnvelope />
-                  </a>
-                )}
-              </>
-            )}
+              {footerSection.showEmail && (
+                <a href={`mailto:${footerSection.email}`}>
+                  <FaEnvelope />
+                </a>
+              )}
+            </>
           </div>
         </div>
 
         <div className="footer-line"></div>
 
         <div className="footer-bottom">
-          {editMode ? (
-            <>
-              <input
-                value={footerSection.copyright}
-                onChange={(e) =>
-                  setFooterSection({
-                    ...footerSection,
-                    copyright: e.target.value,
-                  })
-                }
-                placeholder="Enter Copyright Title URL"
-              />
+          <>
+            <p>{footerSection.copyright}</p>
 
-              <input
-                value={footerSection.location}
-                onChange={(e) =>
-                  setFooterSection({
-                    ...footerSection,
-                    location: e.target.value,
-                  })
-                }
-                placeholder="Enter Location"
-              />
-            </>
-          ) : (
-            <>
-              <p>{footerSection.copyright}</p>
-
-              <span>{footerSection.location}</span>
-            </>
-          )}
+            <span>{footerSection.location}</span>
+          </>
         </div>
       </footer>
     </>
