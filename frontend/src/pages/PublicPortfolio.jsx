@@ -85,10 +85,6 @@ export default function PublicPortfolio() {
 
         console.log("Portfolio:", data);
 
-        const data = portfolioSnap.data();
-
-        console.log("Portfolio:", data);
-
         if (data.headerSection) setHeaderSection(data.headerSection);
 
         if (data.heroSection) {
