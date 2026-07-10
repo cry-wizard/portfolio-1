@@ -20,8 +20,31 @@ const LiveChat = lazy(() => import("./pages/livechat"));
 const CreateTicket = lazy(() => import("./pages/CreateTicket"));
 const Features = lazy(() => import("./pages/Features"));
 const FAQ = lazy(() => import("./pages/Faq"));
+const ChooseSubdomain = lazy(() => import("./pages/ChooseSubdomain"));
+const PublicPortfolio = lazy(() => import("./pages/PublicPortfolio"));
 
 function App() {
+  const host = window.location.hostname;
+
+  // Development
+  const isLocalhost = host === "localhost" || host === "127.0.0.1";
+
+  // Production
+  const isMainDomain =
+    host === "centennialinfotech.com" || host === "www.centennialinfotech.com";
+
+  const subdomain =
+    !isLocalhost && !isMainDomain && host.endsWith(".centennialinfotech.com")
+      ? host.split(".")[0]
+      : null;
+  if (subdomain) {
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <PublicPortfolio subdomain={subdomain} />
+      </Suspense>
+    );
+  }
+
   return (
     <>
       <CookieBanner />
@@ -45,6 +68,7 @@ function App() {
           <Route path="/ticket" element={<CreateTicket />} />
           <Route path="/features" element={<Features />} />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/choose-subdomain" element={<ChooseSubdomain />} />
         </Routes>
       </Suspense>
     </>
