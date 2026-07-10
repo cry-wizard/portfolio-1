@@ -382,7 +382,7 @@ export default function PublicPortfolio() {
         <div className="about-container">
           {aboutSection.cards.map((card, index) => (
             <div className="about-card" key={card.id}>
-              <div className="icon">getIcon(card.icon)</div>
+              <div className="icon"> {getIcon(card.icon)}</div>
 
               <>
                 <h3>{card.title}</h3>
