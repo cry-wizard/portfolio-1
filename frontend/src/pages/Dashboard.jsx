@@ -379,10 +379,7 @@ const HeroSection = () => {
                   })
                 }
               />
-
               <input type="file" accept="image/*" onChange={handleLogoUpload} />
-
-              {/* ✅ REMOVE BUTTON */}
               {headerSection.logoImage && (
                 <button className="remove-btn" onClick={removeLogo}>
                   Remove Logo
@@ -403,65 +400,33 @@ const HeroSection = () => {
             </div>
           )}
         </div>
+
+        <nav className={`navbar ${menuOpen ? "mobile-open" : ""}`}>
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
         <div className="header-actions">
           <button
             className="customize-btn"
             onClick={() => setEditMode(!editMode)}
           >
-            ⚙️
+            {editMode ? "💾 Save" : "⚙️"}
           </button>
-
+          <button className="go-premium-btn bg-gradient-to-r from-yellow-500 to-orange-500 px-3 py-2 md:px-6 md:py-3 rounded-xl md:rounded-2xl text-sm md:text-base font-semibold transition-all shadow-2xl">
+            Go Premium
+          </button>{" "}
           <button
             className="mobile-menu-btn"
             onClick={() => setMenuOpen(!menuOpen)}
           >
-            {menuOpen ? <HiX size={28} /> : <HiMenu size={28} />}
+            {menuOpen ? <HiX size={24} /> : <HiMenu size={24} />}
           </button>
         </div>
-        <nav className="navbar">
-          <a href="#home" onClick={() => setMenuOpen(false)}>
-            Home
-          </a>
-
-          <a href="#about" onClick={() => setMenuOpen(false)}>
-            About
-          </a>
-
-          <a href="#skills" onClick={() => setMenuOpen(false)}>
-            Skills
-          </a>
-
-          <a href="#projects" onClick={() => setMenuOpen(false)}>
-            Projects
-          </a>
-
-          <a href="#contact" onClick={() => setMenuOpen(false)}>
-            Contact
-          </a>
-        </nav>
       </header>
-
-      {menuOpen && (
-        <div className="mobile-nav-panel">
-          <div className="mobile-nav-links">
-            <a href="#home" onClick={() => setMenuOpen(false)}>
-              Home
-            </a>
-            <a href="#about" onClick={() => setMenuOpen(false)}>
-              About
-            </a>
-            <a href="#skills" onClick={() => setMenuOpen(false)}>
-              Skills
-            </a>
-            <a href="#projects" onClick={() => setMenuOpen(false)}>
-              Projects
-            </a>
-            <a href="#contact" onClick={() => setMenuOpen(false)}>
-              Contact
-            </a>
-          </div>
-        </div>
-      )}
 
       {/* Hero Section */}
       <section className="hero" id="home">
@@ -476,6 +441,7 @@ const HeroSection = () => {
                     greeting: e.target.value,
                   })
                 }
+                placeholder="Enter Greeting"
               />
 
               <input
@@ -486,6 +452,7 @@ const HeroSection = () => {
                     firstName: e.target.value,
                   })
                 }
+                placeholder="Enter First Name"
               />
 
               <input
@@ -496,6 +463,7 @@ const HeroSection = () => {
                     lastName: e.target.value,
                   })
                 }
+                placeholder="Enter Last Name"
               />
 
               <input
@@ -506,6 +474,7 @@ const HeroSection = () => {
                     role: e.target.value,
                   })
                 }
+                placeholder="Enter Role"
               />
 
               <textarea
@@ -516,6 +485,7 @@ const HeroSection = () => {
                     description: e.target.value,
                   })
                 }
+                placeholder="Enter Description"
               />
 
               <input
@@ -526,6 +496,7 @@ const HeroSection = () => {
                     github: e.target.value,
                   })
                 }
+                placeholder="https://github.com/username"
               />
 
               <input
@@ -536,6 +507,7 @@ const HeroSection = () => {
                     linkedin: e.target.value,
                   })
                 }
+                placeholder="https://linkedin.com/in/username"
               />
 
               <label>Upload Profile Image</label>
@@ -662,6 +634,7 @@ const HeroSection = () => {
                         cards: updated,
                       });
                     }}
+                    placeholder="Enter Card Title"
                   />
 
                   <textarea
@@ -676,6 +649,7 @@ const HeroSection = () => {
                         cards: updated,
                       });
                     }}
+                    placeholder="Enter Card Description"
                   />
 
                   <button
@@ -785,6 +759,7 @@ const HeroSection = () => {
                             skills: updated,
                           });
                         }}
+                        placeholder="Enter Skill Name"
                       />
 
                       <input
@@ -800,6 +775,7 @@ const HeroSection = () => {
                             skills: updated,
                           });
                         }}
+                        placeholder="Enter Percentage"
                       />
                     </>
                   ) : (
@@ -975,6 +951,7 @@ const HeroSection = () => {
                         projects: updated,
                       });
                     }}
+                    placeholder="Enter Project Title"
                   />
                 ) : (
                   project.title
@@ -994,6 +971,7 @@ const HeroSection = () => {
                       projects: updated,
                     });
                   }}
+                  placeholder="Enter Project Description"
                 />
               ) : (
                 <p>{project.description}</p>
@@ -1012,6 +990,7 @@ const HeroSection = () => {
                       projects: updated,
                     });
                   }}
+                  placeholder="Enter Project Tag"
                 />
               ) : (
                 <span className="project-tag">{project.tag}</span>
@@ -1249,6 +1228,7 @@ const HeroSection = () => {
                         email: e.target.value,
                       })
                     }
+                    placeholder="Enter Email"
                   />
                 ) : (
                   <p>{contactSection.email}</p>
@@ -1275,6 +1255,7 @@ const HeroSection = () => {
                         phone: e.target.value,
                       })
                     }
+                    placeholder="Enter Phone"
                   />
                 ) : (
                   <p>{contactSection.phone}</p>
@@ -1389,6 +1370,7 @@ const HeroSection = () => {
                       name: e.target.value,
                     })
                   }
+                  placeholder="Enter Name"
                 />
 
                 <textarea
@@ -1399,6 +1381,7 @@ const HeroSection = () => {
                       description: e.target.value,
                     })
                   }
+                  placeholder="Enter Description"
                 />
               </>
             ) : (

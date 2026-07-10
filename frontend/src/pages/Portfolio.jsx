@@ -368,11 +368,8 @@ export default function Trial() {
           </button>
 
           {!isPremium && (
-            <button
-              onClick={() => navigate("/pricing")}
-              className="premium-btn"
-            >
-              Premium
+            <button className="go-premium-btn bg-gradient-to-r from-yellow-500 to-orange-500 px-3 py-2 md:px-6 md:py-3 rounded-xl md:rounded-2xl text-sm md:text-base font-semibold transition-all shadow-2xl">
+              Go Premium
             </button>
           )}
 
@@ -388,21 +385,11 @@ export default function Trial() {
       {mobileMenu && (
         <div className="mobile-nav-panel">
           <div className="mobile-nav-links">
-            <a href="#home" onClick={() => setMobileMenu(false)}>
-              Home
-            </a>
-            <a href="#about" onClick={() => setMobileMenu(false)}>
-              About
-            </a>
-            <a href="#skills" onClick={() => setMobileMenu(false)}>
-              Skills
-            </a>
-            <a href="#projects" onClick={() => setMobileMenu(false)}>
-              Projects
-            </a>
-            <a href="#contact" onClick={() => setMobileMenu(false)}>
-              Contact
-            </a>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
           </div>
         </div>
       )}
