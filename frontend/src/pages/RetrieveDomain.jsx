@@ -92,8 +92,8 @@ export default function RetrieveDomain() {
               {loading ? "Searching..." : "Find My Domains"}
             </button>
             <button
-              type="button"
-              className="primary-btn"
+              type="submit"
+              className="retrieve-domain-primary-btn"
               onClick={() => navigate("/choose-subdomain")}
             >
               Register Subdomain
