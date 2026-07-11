@@ -33,6 +33,8 @@ export default function ChooseSubdomain() {
 
       if (snap.exists()) {
         console.log("User document:", snap.data());
+        console.log("Subdomain =", data.subdomain);
+        console.log("Skipped =", data.skippedSubdomain);
 
         if (snap.data().subdomain) {
           console.log("Redirecting to portfolio...");
