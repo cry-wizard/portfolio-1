@@ -4,6 +4,7 @@ import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../services/firebase";
 import "../css/choose-subdomain.css";
 import { defaultPortfolio } from "../data/defaultPortfolio";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function ChooseSubdomain() {
   const [subdomain, setSubdomain] = useState("");
@@ -14,6 +15,7 @@ export default function ChooseSubdomain() {
 
   const navigate = useNavigate();
 
+  /*
   useEffect(() => {
     const checkUserStatus = async () => {
       if (!auth.currentUser) return;
@@ -41,6 +43,32 @@ export default function ChooseSubdomain() {
     };
 
     checkUserStatus();
+  }, [navigate]);
+  */
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        navigate("/login");
+        return;
+      }
+
+      try {
+        const userRef = doc(db, "users", user.uid);
+        const userSnap = await getDoc(userRef);
+
+        if (!userSnap.exists()) return;
+
+        const userData = userSnap.data();
+
+        if (userData.subdomain || userData.skippedSubdomain) {
+          navigate("/portfolio", { replace: true });
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+    return () => unsubscribe();
   }, [navigate]);
 
   const checkAvailability = async () => {
