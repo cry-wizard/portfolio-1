@@ -228,7 +228,10 @@ export default function Home() {
               Pricing
             </a>
 
-            <a href="#faq" className="hover:text-white transition-colors">
+            <a
+              href="/choose-subdomain"
+              className="hover:text-white transition-colors"
+            >
               Subdomain
             </a>
 
