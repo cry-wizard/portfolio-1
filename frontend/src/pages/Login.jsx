@@ -178,7 +178,6 @@ export default function Login() {
         { merge: true },
       );
       console.log("WRITE SUCCESS");
-      navigate("/choose-subdomain");
     } catch (error) {
       console.error(error);
       setErrorMsg(getFirebaseError(error));
