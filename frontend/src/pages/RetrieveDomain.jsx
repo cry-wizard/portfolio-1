@@ -2,14 +2,14 @@ import { useState } from "react";
 import "../css/retrievedomain.css";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../services/firebase";
+
 const BASE_DOMAIN = "centennialinfotech.com"; // Change to your domain
-import { useNavigate } from "react-router-dom";
+
 export default function RetrieveDomain() {
   const [email, setEmail] = useState("");
   const [domains, setDomains] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,7 +37,6 @@ export default function RetrieveDomain() {
 
       snapshot.forEach((doc) => {
         const user = doc.data();
-
         if (user.subdomain) {
           foundDomains.push({
             id: doc.id,
@@ -61,9 +60,9 @@ export default function RetrieveDomain() {
   };
 
   return (
-    <div className="subdomain-page">
-      <div className="subdomain-card">
-        <div className="badge">🔍 Domain Recovery</div>
+    <div className="retrieve-domain-page">
+      <div className="retrieve-domain-card">
+        <div className="retrieve-domain-badge">🔍 Domain Recovery</div>
 
         <h1>Retrieve Your Portfolio URL</h1>
 
@@ -75,30 +74,27 @@ export default function RetrieveDomain() {
         <form onSubmit={handleSubmit}>
           <input
             type="email"
-            className="retrieve-input"
+            className="retrieve-domain-input"
             placeholder="Enter your registered email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
 
-          <div className="btn-group">
-            <button type="submit" className="primary-btn" disabled={loading}>
-              {loading ? "Searching..." : "Find My Domains"}
-            </button>
+          <div className="retrieve-domain-btn-group">
             <button
               type="submit"
-              className="primary-btn"
-              onClick={() => navigate("/choose-subdomain")}
+              className="retrieve-domain-primary-btn"
+              disabled={loading}
             >
-              Register Subdomain
+              {loading ? "Searching..." : "Find My Domains"}
             </button>
           </div>
         </form>
 
         {message && (
           <div
-            className={`status ${
+            className={`retrieve-domain-status ${
               message.startsWith("✅") ? "success" : "error"
             }`}
           >
@@ -107,20 +103,17 @@ export default function RetrieveDomain() {
         )}
 
         {domains.length > 0 && (
-          <>
-            <div className="divider"></div>
-
+          <div className="retrieve-domain-found">
             <h3>Your Registered Domains</h3>
 
             {domains.map((domain) => (
-              <div className="domain-card" key={domain.id}>
-                <div className="domain-name">
+              <div className="domain-item" key={domain.id}>
+                <span className="domain-url">
                   http://{domain.subdomain}.{BASE_DOMAIN}
-                </div>
-
+                </span>
                 <a
                   href={`http://${domain.subdomain}.${BASE_DOMAIN}`}
-                  className="primary-btn"
+                  className="open-btn"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -128,7 +121,7 @@ export default function RetrieveDomain() {
                 </a>
               </div>
             ))}
-          </>
+          </div>
         )}
       </div>
     </div>
