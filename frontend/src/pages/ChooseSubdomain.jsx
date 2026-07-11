@@ -47,8 +47,10 @@ export default function ChooseSubdomain() {
   */
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      console.log("Auth user:", user);
+
       if (!user) {
-        navigate("/login");
+        console.log("No logged in user");
         return;
       }
 
@@ -56,11 +58,15 @@ export default function ChooseSubdomain() {
         const userRef = doc(db, "users", user.uid);
         const userSnap = await getDoc(userRef);
 
+        console.log("Document exists:", userSnap.exists());
+
         if (!userSnap.exists()) return;
 
         const userData = userSnap.data();
+        console.log("User data:", userData);
 
-        if (userData.subdomain || userData.skippedSubdomain) {
+        if (userData.subdomain) {
+          console.log("Redirecting to portfolio...");
           navigate("/portfolio", { replace: true });
         }
       } catch (err) {
@@ -70,6 +76,26 @@ export default function ChooseSubdomain() {
 
     return () => unsubscribe();
   }, [navigate]);
+  useEffect(() => {
+    const check = async () => {
+      const user = auth.currentUser;
+
+      console.log("USER:", user);
+
+      if (!user) return;
+
+      const ref = doc(db, "users", user.uid);
+      const snap = await getDoc(ref);
+
+      console.log("EXISTS:", snap.exists());
+
+      if (snap.exists()) {
+        console.log("DATA:", snap.data());
+      }
+    };
+
+    check();
+  }, []);
 
   const checkAvailability = async () => {
     setChecking(true);
