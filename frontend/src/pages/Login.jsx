@@ -159,10 +159,29 @@ export default function Login() {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      console.log("USER:", user);
-
       const userRef = doc(db, "users", user.uid);
       const userSnap = await getDoc(userRef);
+
+      // Create the document only for first-time Google users
+      if (!userSnap.exists()) {
+        await setDoc(userRef, {
+          uid: user.uid,
+          name: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+          provider: "google",
+          plan: "trial",
+          createdAt: Date.now(),
+          trialStartedAt: Date.now(),
+          trialEndsAt: Date.now() + 3 * 24 * 60 * 60 * 1000,
+        });
+
+        console.log("New Google user created");
+      } else {
+        console.log("Existing Google user");
+      }
+
+      // Let onAuthStateChanged handle navigation
     } catch (error) {
       console.error(error);
       setErrorMsg(getFirebaseError(error));
