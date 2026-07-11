@@ -18,17 +18,33 @@ export default function ChooseSubdomain() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("useEffect fired");
-
     const check = async () => {
-      console.log("check() started");
-
       const user = auth.currentUser;
+
       console.log("USER:", user);
+
+      if (!user) return;
+
+      const ref = doc(db, "users", user.uid);
+      const snap = await getDoc(ref);
+
+      console.log("UID:", user.uid);
+      console.log("Document exists:", snap.exists());
+
+      if (snap.exists()) {
+        console.log("User document:", snap.data());
+
+        if (snap.data().subdomain) {
+          console.log("Redirecting to portfolio...");
+          navigate("/portfolio", { replace: true });
+        }
+      } else {
+        console.log("No user document found");
+      }
     };
 
     check();
-  }, []);
+  }, [navigate]);
 
   const checkAvailability = async () => {
     setChecking(true);
