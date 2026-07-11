@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "../css/portfolio.css";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
@@ -19,6 +19,7 @@ import {
   FaPaintBrush,
 } from "react-icons/fa";
 import { Menu, X } from "lucide-react";
+import RemoveBtnPortfolio from "../components/RemoveBtnPortfolio";
 
 export default function Trial() {
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -28,6 +29,8 @@ export default function Trial() {
   const [username, setUsername] = useState("");
   const navigate = useNavigate();
   const [editMode, setEditMode] = useState(false);
+  const imageInputRef = useRef(null);
+  const cvInputRef = useRef(null);
 
   const iconMap = {
     code: <FaCode />,
@@ -188,6 +191,22 @@ export default function Trial() {
       setHeroSection({ ...heroSection, cv: reader.result });
     };
     reader.readAsDataURL(file);
+  };
+
+  // NEW: Remove Profile Image with input reset
+  const removeProfileImage = () => {
+    setHeroSection({ ...heroSection, image: "/profile.png" });
+    if (imageInputRef.current) {
+      imageInputRef.current.value = ""; // Reset the file input
+    }
+  };
+
+  // NEW: Remove CV with input reset
+  const removeCV = () => {
+    setHeroSection({ ...heroSection, cv: "" });
+    if (cvInputRef.current) {
+      cvInputRef.current.value = ""; // Reset the file input
+    }
   };
 
   // Firebase Auth & Data
@@ -518,19 +537,59 @@ export default function Trial() {
                 Show LinkedIn Icon
               </label>
 
-              <label>Upload Profile Image</label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-              />
+              {/* Profile Image Upload with Remove Button */}
+              <div className="file-upload-wrapper">
+                <label>Upload Profile Image</label>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    width: "100%",
+                  }}
+                >
+                  <input
+                    ref={imageInputRef} // ← ADD THIS
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    style={{ flex: 1 }}
+                  />
+                  <RemoveBtnPortfolio
+                    onClick={removeProfileImage} // ← USE NEW FUNCTION
+                    label="Profile Image"
+                    show={
+                      heroSection.image && heroSection.image !== "/profile.png"
+                    }
+                  />
+                </div>
+              </div>
 
-              <label>Upload CV</label>
-              <input
-                type="file"
-                accept=".pdf,.doc,.docx"
-                onChange={handleCVUpload}
-              />
+              {/* CV Upload with Remove Button */}
+              <div className="file-upload-wrapper">
+                <label>Upload CV</label>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    width: "100%",
+                  }}
+                >
+                  <input
+                    ref={cvInputRef} // ← ADD THIS
+                    type="file"
+                    accept=".pdf,.doc,.docx"
+                    onChange={handleCVUpload}
+                    style={{ flex: 1 }}
+                  />
+                  <RemoveBtnPortfolio
+                    onClick={removeCV} // ← USE NEW FUNCTION
+                    label="CV"
+                    show={heroSection.cv && heroSection.cv !== ""}
+                  />
+                </div>
+              </div>
             </div>
           ) : (
             <>

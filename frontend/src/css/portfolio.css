@@ -2625,3 +2625,520 @@ html {
     padding-top: 50px !important;
   }
 }
+
+/* ============================================
+   REMOVE FILE BUTTON
+   ============================================ */
+
+.file-upload-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.file-upload-wrapper label {
+  font-size: 14px;
+  color: #fff;
+  font-weight: 500;
+}
+
+.file-upload-wrapper .file-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.file-upload-wrapper .file-input-row input[type="file"] {
+  flex: 1;
+  min-width: 150px;
+  padding: 8px 12px;
+  border: 1px solid #2a3a55;
+  border-radius: 8px;
+  background: #0f1a33;
+  color: white;
+}
+
+.remove-file-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  background: #ff4d4f;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.remove-file-btn:hover {
+  background: #ff7875;
+  transform: scale(1.1);
+}
+
+.remove-file-btn:active {
+  transform: scale(0.9);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .remove-file-btn {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    min-height: 28px;
+  }
+
+  .file-upload-wrapper .file-input-row input[type="file"] {
+    min-width: 100px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .remove-file-btn {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+  }
+
+  .file-upload-wrapper .file-input-row input[type="file"] {
+    min-width: 80px;
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+}
+
+/* ============================================
+   SURFACE DUO - COMPLETE FIX
+   ============================================ */
+
+/* Surface Duo - Folded (Single Screen Portrait) */
+@media screen and (max-width: 540px) and (orientation: portrait) {
+  /* ===== HEADER ===== */
+  .dashboard.header {
+    padding: 4px 8px !important;
+    min-height: 42px !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 5px !important;
+    background: #07122b !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000 !important;
+    width: 100% !important;
+  }
+
+  /* ===== LOGO - MORE SPACE ===== */
+  .dashboard.header .logo {
+    flex: 0 0 auto !important;
+    max-width: 90px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+  }
+
+  .dashboard.header .logo-display {
+    font-size: 18px !important;
+    white-space: nowrap !important;
+    font-weight: 700 !important;
+  }
+
+  .dashboard.header .logo-img {
+    height: 24px !important;
+    width: auto !important;
+  }
+
+  /* ===== LOGO EDIT - GOOD ALIGNMENT ===== */
+  .dashboard.header .logo-edit {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 4px !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .dashboard.header .logo-edit input[type="text"] {
+    width: 45px !important;
+    font-size: 9px !important;
+    padding: 2px 4px !important;
+    height: 22px !important;
+    background: #0f1a33 !important;
+    color: white !important;
+    border: 1px solid #2a3a55 !important;
+    border-radius: 3px !important;
+  }
+
+  /* FILE INPUT - COMPACT */
+  .dashboard.header .logo-edit input[type="file"] {
+    max-width: 28px !important;
+    width: 28px !important;
+    font-size: 0 !important;
+    padding: 1px !important;
+    height: 22px !important;
+    background: transparent !important;
+    color: white !important;
+    border: 1px solid #2a3a55 !important;
+    border-radius: 3px !important;
+    overflow: hidden !important;
+    cursor: pointer !important;
+  }
+
+  .dashboard.header .logo-edit input[type="file"]::file-selector-button {
+    font-size: 5px !important;
+    padding: 1px 2px !important;
+    background: #1a2a44 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 2px !important;
+    width: 100% !important;
+  }
+
+  /* REMOVE BUTTON - SMALL */
+  .dashboard.header .logo-edit .remove-btn {
+    font-size: 6px !important;
+    padding: 1px 3px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    width: 18px !important;
+    background: #ff4d4f !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* ===== NAVBAR ===== */
+  .dashboard.header .navbar {
+    display: flex !important;
+    flex: 1 !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 3px !important;
+    padding: 0 3px !important;
+  }
+
+  .dashboard.header .navbar a {
+    font-size: 8px !important;
+    color: white !important;
+    text-decoration: none !important;
+    padding: 2px 3px !important;
+    white-space: nowrap !important;
+  }
+
+  .dashboard.header .navbar a:hover {
+    color: #22d3ee !important;
+  }
+
+  /* ===== HIDE MOBILE MENU ===== */
+  .dashboard.header .mobile-nav-panel {
+    display: none !important;
+  }
+
+  .dashboard.header .mobile-menu-btn {
+    display: none !important;
+  }
+
+  /* ===== HEADER ACTIONS ===== */
+  .dashboard.header .header-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* ===== CUSTOMIZE BUTTON - GEAR ICON ===== */
+  .dashboard.header .header-actions .customize-btn {
+    font-size: 0 !important;
+    padding: 3px !important;
+    min-width: 26px !important;
+    height: 26px !important;
+    background: #7c3aed !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .dashboard.header .header-actions .customize-btn::before {
+    content: "⚙️" !important;
+    font-size: 13px !important;
+    display: inline-block !important;
+  }
+
+  /* Edit Mode - Change to Save */
+  .dashboard.header .header-actions .customize-btn.edit-mode {
+    background: #4caf50 !important;
+  }
+
+  .dashboard.header .header-actions .customize-btn.edit-mode::before {
+    content: "💾" !important;
+    font-size: 13px !important;
+  }
+
+  /* ===== GO PREMIUM BUTTON ===== */
+  .dashboard.header .header-actions .go-premium-btn {
+    font-size: 7px !important;
+    padding: 2px 6px !important;
+    height: 26px !important;
+    min-width: 40px !important;
+    border-radius: 3px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(135deg, #f59e0b, #fbbf24) !important;
+    color: black !important;
+    font-weight: 600 !important;
+    border: none !important;
+    cursor: pointer !important;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    padding-top: 65px !important;
+  }
+}
+
+/* Surface Duo - Folded (Landscape) */
+@media screen and (max-width: 720px) and (orientation: landscape) {
+  .dashboard.header {
+    padding: 5px 12px !important;
+    min-height: 40px !important;
+    gap: 8px !important;
+  }
+
+  .dashboard.header .logo {
+    max-width: 80px !important;
+  }
+
+  .dashboard.header .logo-display {
+    font-size: 14px !important;
+  }
+
+  .dashboard.header .logo-img {
+    height: 26px !important;
+  }
+
+  .dashboard.header .logo-edit input[type="text"] {
+    width: 50px !important;
+    font-size: 10px !important;
+    height: 24px !important;
+  }
+
+  .dashboard.header .logo-edit input[type="file"] {
+    max-width: 30px !important;
+    width: 30px !important;
+    height: 24px !important;
+  }
+
+  .dashboard.header .logo-edit .remove-btn {
+    height: 20px !important;
+    min-width: 20px !important;
+    width: 20px !important;
+    font-size: 7px !important;
+  }
+
+  .dashboard.header .navbar a {
+    font-size: 10px !important;
+    padding: 2px 4px !important;
+  }
+
+  .dashboard.header .navbar {
+    gap: 5px !important;
+  }
+
+  .dashboard.header .header-actions .customize-btn {
+    min-width: 28px !important;
+    height: 28px !important;
+  }
+
+  .dashboard.header .header-actions .customize-btn::before {
+    font-size: 14px !important;
+  }
+
+  .dashboard.header .header-actions .go-premium-btn {
+    font-size: 8px !important;
+    padding: 2px 8px !important;
+    height: 28px !important;
+    min-width: 45px !important;
+  }
+
+  .hero {
+    padding-top: 60px !important;
+  }
+}
+
+/* Surface Duo - Unfolded (Spanned) */
+@media screen and (min-width: 720px) and (max-width: 1100px) and (orientation: landscape) {
+  .dashboard.header {
+    padding: 6px 20px !important;
+    min-height: 46px !important;
+    gap: 12px !important;
+  }
+
+  .dashboard.header .logo {
+    max-width: 90px !important;
+  }
+
+  .dashboard.header .logo-display {
+    font-size: 16px !important;
+  }
+
+  .dashboard.header .logo-img {
+    height: 30px !important;
+  }
+
+  .dashboard.header .logo-edit input[type="text"] {
+    width: 55px !important;
+    font-size: 11px !important;
+    height: 26px !important;
+  }
+
+  .dashboard.header .logo-edit input[type="file"] {
+    max-width: 35px !important;
+    width: 35px !important;
+    height: 26px !important;
+  }
+
+  .dashboard.header .logo-edit .remove-btn {
+    height: 22px !important;
+    min-width: 22px !important;
+    width: 22px !important;
+    font-size: 7px !important;
+  }
+
+  .dashboard.header .navbar {
+    gap: 10px !important;
+  }
+
+  .dashboard.header .navbar a {
+    font-size: 12px !important;
+    padding: 3px 6px !important;
+  }
+
+  .dashboard.header .header-actions .customize-btn {
+    min-width: 32px !important;
+    height: 32px !important;
+  }
+
+  .dashboard.header .header-actions .customize-btn::before {
+    font-size: 16px !important;
+  }
+
+  .dashboard.header .header-actions .go-premium-btn {
+    font-size: 10px !important;
+    padding: 3px 12px !important;
+    height: 32px !important;
+    min-width: 60px !important;
+  }
+
+  /* Hide mobile menu */
+  .dashboard.header .mobile-menu-btn {
+    display: none !important;
+  }
+
+  .dashboard.header .mobile-nav-panel {
+    display: none !important;
+  }
+
+  .hero {
+    padding-top: 70px !important;
+  }
+}
+
+/* Surface Duo 2 - Unfolded */
+@media screen and (min-width: 1100px) and (max-width: 1368px) and (orientation: landscape) {
+  .dashboard.header {
+    padding: 8px 25px !important;
+    min-height: 50px !important;
+    gap: 15px !important;
+  }
+
+  .dashboard.header .logo {
+    max-width: 100px !important;
+  }
+
+  .dashboard.header .logo-display {
+    font-size: 18px !important;
+  }
+
+  .dashboard.header .logo-img {
+    height: 32px !important;
+  }
+
+  .dashboard.header .logo-edit input[type="text"] {
+    width: 65px !important;
+    font-size: 12px !important;
+    height: 28px !important;
+  }
+
+  .dashboard.header .logo-edit input[type="file"] {
+    max-width: 40px !important;
+    width: 40px !important;
+    height: 28px !important;
+  }
+
+  .dashboard.header .logo-edit .remove-btn {
+    height: 24px !important;
+    min-width: 24px !important;
+    width: 24px !important;
+    font-size: 8px !important;
+  }
+
+  .dashboard.header .navbar {
+    gap: 14px !important;
+  }
+
+  .dashboard.header .navbar a {
+    font-size: 13px !important;
+    padding: 4px 8px !important;
+  }
+
+  .dashboard.header .header-actions .customize-btn {
+    min-width: 36px !important;
+    height: 36px !important;
+  }
+
+  .dashboard.header .header-actions .customize-btn::before {
+    font-size: 18px !important;
+  }
+
+  .dashboard.header .header-actions .go-premium-btn {
+    font-size: 11px !important;
+    padding: 4px 14px !important;
+    height: 36px !important;
+    min-width: 70px !important;
+  }
+
+  .dashboard.header .mobile-menu-btn {
+    display: none !important;
+  }
+
+  .dashboard.header .mobile-nav-panel {
+    display: none !important;
+  }
+
+  .hero {
+    padding-top: 75px !important;
+  }
+}
