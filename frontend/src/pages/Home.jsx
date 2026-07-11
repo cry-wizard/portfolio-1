@@ -228,6 +228,10 @@ export default function Home() {
             </a>
 
             <a href="#faq" className="hover:text-white transition-colors">
+              Subdomain
+            </a>
+
+            <a href="#faq" className="hover:text-white transition-colors">
               FAQ
             </a>
           </div>
