@@ -149,9 +149,9 @@ export default function Home() {
               <div className="relative">
                 <button
                   onClick={() => setUserMenu(!userMenu)}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-1 md:gap-2"
                 >
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold">
+                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-sm md:text-base font-bold">
                     {userData.name?.charAt(0).toUpperCase()}
                   </div>
 
