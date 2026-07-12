@@ -127,6 +127,10 @@ export default function Login() {
     try {
       setErrorMsg("");
       setSuccessMsg("");
+      if (!form.firstName.trim()) {
+        setErrorMsg("Please enter your first name.");
+        return;
+      }
 
       const result = await createUserWithEmailAndPassword(
         auth,
