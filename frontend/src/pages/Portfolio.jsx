@@ -50,8 +50,8 @@ export default function Trial() {
 
   const [heroSection, setHeroSection] = useState({
     greeting: "Hi, I'm",
-    firstName: "Ashwani",
-    lastName: "Kumar Chauhan",
+    firstName: "John",
+    lastName: "Michael",
     role: "MERN Stack Developer",
     description: "Passionate about creating responsive applications.",
     githubUsername: "yourusername",
@@ -140,16 +140,16 @@ export default function Trial() {
     title: "Get In Touch",
     leftTitle: "Contact Information",
     rightTitle: "Send me a Message",
-    email: "Ashwanikumarchauhan014@gmail.com",
-    phone: "9616129738",
-    location: "U.P, INDIA",
+    email: "johnmichael@gmail.com",
+    phone: "+1 (212) 555-1234",
+    location: "123 Main Street, Apt 4BLos Angeles, CA 90001, USA",
     opportunityTitle: "Open for Opportunities",
     opportunityDescription:
       "I'm actively looking for entry-level MERN Stack Developer roles and internship opportunities. If you have an exciting project or role, feel free to connect with me!",
   });
-
+  Michael;
   const [footerSection, setFooterSection] = useState({
-    name: "ashwani",
+    name: "John Michael",
     description: "Building digital experiences with precision and passion.",
     githubUsername: "yourusername",
     linkedinUsername: "yourusername",
@@ -157,8 +157,8 @@ export default function Trial() {
     showGithub: true,
     showLinkedin: true,
     showEmail: true,
-    copyright: "© 2026 Ashwani kumar chauhan. All rights reserved.",
-    location: "Lucknow, Uttar Pradesh, India",
+    copyright: "© 2026 John Michael. All rights reserved.",
+    location: "123 Main Street, Apt 4BLos Angeles, CA 90001, USA",
   });
 
   // Image upload handlers
@@ -525,7 +525,7 @@ export default function Trial() {
                   />
                 </div>
                 <small className="input-hint">
-                  💡 Only enter your username (e.g., ashwanikumar)
+                  💡 Only enter your username (e.g., johnmichael)
                 </small>
               </div>
 
@@ -549,7 +549,7 @@ export default function Trial() {
                   />
                 </div>
                 <small className="input-hint">
-                  💡 Only enter your username (e.g., ashwanichauhan)
+                  💡 Only enter your username (e.g., johnmichael)
                 </small>
               </div>
 
