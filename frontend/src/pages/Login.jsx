@@ -145,6 +145,7 @@ export default function Login() {
         uid: user.uid,
         firstName: form.firstName,
         lastName: form.lastName,
+        name: `${form.firstName} ${form.lastName}`,
         email: user.email,
         provider: "email",
         plan: "trial",
