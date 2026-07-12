@@ -31,6 +31,9 @@ export default function Trial() {
   const [editMode, setEditMode] = useState(false);
   const imageInputRef = useRef(null);
   const cvInputRef = useRef(null);
+  const [userMenu, setUserMenu] = useState(false);
+  const [userData, setUserData] = useState(null);
+  const firstName = userData?.name?.split(" ")[0] || "";
 
   const iconMap = {
     code: <FaCode />,
@@ -47,8 +50,8 @@ export default function Trial() {
 
   const [heroSection, setHeroSection] = useState({
     greeting: "Hi, I'm",
-    firstName: "Ashwani",
-    lastName: "Kumar Chauhan",
+    firstName: "John",
+    lastName: "Michael",
     role: "MERN Stack Developer",
     description: "Passionate about creating responsive applications.",
     githubUsername: "yourusername",
@@ -137,16 +140,16 @@ export default function Trial() {
     title: "Get In Touch",
     leftTitle: "Contact Information",
     rightTitle: "Send me a Message",
-    email: "Ashwanikumarchauhan014@gmail.com",
-    phone: "9616129738",
-    location: "U.P, INDIA",
+    email: "johnmichael@gmail.com",
+    phone: "+1 (212) 555-1234",
+    location: "123 Main Street, Apt 4B Los Angeles, CA 90001, USA",
     opportunityTitle: "Open for Opportunities",
     opportunityDescription:
       "I'm actively looking for entry-level MERN Stack Developer roles and internship opportunities. If you have an exciting project or role, feel free to connect with me!",
   });
 
   const [footerSection, setFooterSection] = useState({
-    name: "ashwani",
+    name: "John Michael",
     description: "Building digital experiences with precision and passion.",
     githubUsername: "yourusername",
     linkedinUsername: "yourusername",
@@ -154,8 +157,8 @@ export default function Trial() {
     showGithub: true,
     showLinkedin: true,
     showEmail: true,
-    copyright: "© 2026 Ashwani kumar chauhan. All rights reserved.",
-    location: "Lucknow, Uttar Pradesh, India",
+    copyright: "© 2026 John Michael. All rights reserved.",
+    location: "123 Main Street, Apt 4B Los Angeles, CA 90001, USA",
   });
 
   // Image upload handlers
@@ -230,8 +233,9 @@ export default function Trial() {
         const userSnap = await getDoc(userRef);
 
         if (userSnap.exists()) {
-          const userData = userSnap.data();
-          setIsPremium(userData?.premium === true);
+          const data = userSnap.data();
+          setUserData(data);
+          setIsPremium(data?.premium === true);
         }
 
         if (portfolioSnap.exists()) {
@@ -375,7 +379,7 @@ export default function Trial() {
 
         <div className="header-actions">
           <button
-            className="customize-btn"
+            className="customize-btn flex items-center gap-1 md:gap-2"
             onClick={async () => {
               if (editMode) {
                 await savePortfolio();
@@ -394,6 +398,47 @@ export default function Trial() {
               Go Premium
             </button>
           )}
+
+          {/* User Menu */}
+          <div className="relative">
+            <button
+              onClick={() => setUserMenu(!userMenu)}
+              className="flex items-center gap-1 md:gap-2"
+            >
+              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-sm font-bold">
+                {userData?.name?.charAt(0).toUpperCase()}
+              </div>
+              <span className="hidden md:block text-white">{firstName}</span>
+            </button>
+
+            {userMenu && (
+              <div className="absolute right-0 mt-2 w-56 bg-[#1b1b1b] border border-white/10 rounded-xl shadow-xl z-50 overflow-hidden">
+                <div className="px-4 py-3 border-b border-white/10">
+                  <p className="text-white font-semibold break-words">
+                    {userData?.name || "User"}
+                  </p>
+
+                  <p className="text-xs text-white/60 break-all">
+                    {userData?.email}
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => navigate("/retrieve-domain")}
+                  className="w-full text-left px-4 py-3 hover:bg-white/10"
+                >
+                  My Domains
+                </button>
+
+                <button
+                  onClick={logout}
+                  className="w-full text-left px-4 py-3 text-red-400 hover:bg-white/10"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
 
           <button
             className="mobile-menu-btn"
@@ -480,7 +525,7 @@ export default function Trial() {
                   />
                 </div>
                 <small className="input-hint">
-                  💡 Only enter your username (e.g., ashwanikumar)
+                  💡 Only enter your username (e.g., johnmichael)
                 </small>
               </div>
 
@@ -504,7 +549,7 @@ export default function Trial() {
                   />
                 </div>
                 <small className="input-hint">
-                  💡 Only enter your username (e.g., ashwanichauhan)
+                  💡 Only enter your username (e.g., johnmichael)
                 </small>
               </div>
 

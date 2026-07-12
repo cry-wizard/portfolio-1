@@ -100,6 +100,9 @@ body {
   align-items: center;
   gap: 10px;
 }
+.header-actions .relative {
+  position: relative;
+}
 
 .logo-img {
   height: 50px;
@@ -511,7 +514,14 @@ input[type="file"]::file-selector-button {
   padding: 60px 40px;
   font-family: Arial, sans-serif;
 }
+.projects-section .section-title{
 
+      text-align: center;
+    font-size: 58px;
+    font-weight: 800;
+    color: #132238;
+    margin-bottom: 60px;
+}
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -630,7 +640,7 @@ input[type="file"]::file-selector-button {
 .contact-section {
   background: #e5e5e5;
   min-height: 100vh;
-  padding: 70px 40px;
+  padding: 0px 40px 40px 70px;
   font-family: Arial, sans-serif;
 }
 
@@ -718,12 +728,11 @@ input[type="file"]::file-selector-button {
 }
 
 .contact-right h2 {
-  color: black;
+  color: #ffffff;
   font-size: 18px;
   white-space: nowrap;
   /* display: flex;
   justify-content: center; */
-  background-color: white;
   height: 50px;
   font-weight: bold;
   font-size: 15px;
@@ -3070,7 +3079,7 @@ html {
 @media screen and (min-width: 1100px) and (max-width: 1368px) and (orientation: landscape) {
   .dashboard.header {
     padding: 8px 25px !important;
-    min-height: 50px !important;
+    min-height: 60px !important;
     gap: 15px !important;
   }
 
@@ -3110,7 +3119,7 @@ html {
   }
 
   .dashboard.header .navbar a {
-    font-size: 13px !important;
+    font-size: 18px !important;
     padding: 4px 8px !important;
   }
 
