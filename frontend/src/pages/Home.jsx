@@ -112,7 +112,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="hidden md:flex items-center gap-8 text-white/80 nav-links">
+          <div className="hidden md:flex items-center gap-6 text-white/80 nav-links">
             <button
               onClick={() =>
                 document
@@ -163,7 +163,17 @@ export default function Home() {
                 </button>
 
                 {userMenu && (
-                  <div className="absolute right-0 mt-3 w-44 bg-black border border-white/10 rounded-xl shadow-xl p-2 z-50">
+                  <div className="absolute right-0 mt-3 w-60 bg-black border border-white/10 rounded-xl shadow-xl p-3 z-50">
+                    <div className="mb-3 border-b border-white/10 pb-3">
+                      <p className="text-white font-semibold break-words">
+                        {userData?.name}
+                      </p>
+
+                      <p className="text-white/50 text-sm break-words">
+                        {userData?.email}
+                      </p>
+                    </div>
+
                     <button
                       onClick={() => navigate("/retrieve-domain")}
                       className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/10"
