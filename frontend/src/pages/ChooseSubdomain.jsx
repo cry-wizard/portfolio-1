@@ -14,6 +14,7 @@ export default function ChooseSubdomain() {
   const [checking, setChecking] = useState(false);
   const [message, setMessage] = useState("");
   const [copyMessage, setCopyMessage] = useState("");
+  const [currentUser, setCurrentUser] = useState(null);
 
   const navigate = useNavigate();
 
@@ -23,7 +24,11 @@ export default function ChooseSubdomain() {
 
       console.log("USER:", user);
 
-      if (!user) return;
+      if (!user) {
+        setCurrentUser(null);
+        navigate("/login");
+        return;
+      }
 
       const ref = doc(db, "users", user.uid);
       const snap = await getDoc(ref);
